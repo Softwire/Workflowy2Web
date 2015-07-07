@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "DUX Content Processor",
+  "description": "This extension converts a workflowy page to an HTML prototype.",
+  "version": "1.0",
+
+  "permissions": [
+    "tabs",
+	"https://workflowy.com/s/*"
+  ],
+  "background":{
+    "persistent":false,
+    "page":"background.html"
+  },
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+	  "matches": [ "https://workflowy.com/s/*" ],
+      "js": [ "jquery-2.1.4.min.js", "jszip.min.js", "FileSaver.min.js" ]
+    }
+  ]
+}
