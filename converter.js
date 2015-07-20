@@ -1,38 +1,48 @@
-// Utility functions (move out into separate file).
-var stripText = function(text, additional) {
-  var stringsToRemove = [ /<b>/g, /<\/b>/g, /<i>/g, /<\/i>/g ];
-  stringsToRemove = stringsToRemove.concat(additional);
-  $.each(stringsToRemove, function(index, stringToRemove) {
-    text = text.replace(stringToRemove, '')
-  });
-  return text.trim();
-};
-// End of Utility functions
+﻿var Converter = function (xml) {
+  this.source = xml;
+  this.htmlPages = [];
 
-var projectTitle = $('.mainTreeRoot').find('.name').first().text();
+  this.GetZippedHtmlFiles = function () {
+    this.processNode(this.source.find('body'), '');
 
-// Dependent on DOM structure of workflowy
-$('#exportAllButton').click();
-var opml = $('#exportPopup').find('.opmlContainer').text();
-$('#exportPopup').parent().find('.ui-icon-closethick').click();
+    var zip = new JSZip();
+    $.each(this.htmlPages, function (index, page) {
+      zip.file(page.filePath, page.content);
+    });
 
-var parsedOpml = $.parseXML(opml);
-var $xml = $(parsedOpml);
-var titles = $.map($xml.find('body').children(), function(outline) {
-  return {
-    name: stripText(outline.getAttribute('text')),
-	filename: stripText(outline.getAttribute('text'), [ / /g, /&amp;/g, /'/g ]).toLowerCase()
-  }
-});
+    return zip.generate({ type: "blob" });
+  };
 
-var navLinks = $.map(titles, function(title) {
-  return "<a href='" + title.filename + ".html'>" + title.name + "</a>";
-}).join("   |   ");
+  this.processNode = function (node, path) {
+    var title = stripText(node.attr('text'));
+    var fileName = stripText(title, [/ /g, /&amp;/g, /'/g]).toLowerCase();
+    if (title && path == '') {
+      this.htmlPages.push({
+        title: title,
+        filePath: path + fileName + '.html',
+        content: getPageContent(node)
+      });
+    }
+    var self = this;
+    $.each(node.children(), function (index, child) {
+      self.processNode($(child), path + (fileName == '' ? '' : (fileName + '/')));
+    });
+  };
 
-var zip = new JSZip();
-$.each(titles, function(index, title) {
-  zip.file(title.filename + ".html", "<!doctype html><html><head><title>" + title.name + "</title></head><body>" + navLinks + "<p>Hello, this is " + title.name + "</p></body></html>");
-});
+  var getPageContent = function (node) {
+    var title = stripText(node.attr('text'));
+    return "<!doctype html><html><head><title>" + title + "</title></head><body><p>Hello, this is " + title + "</p></body></html>";
+  };
 
-var blob = zip.generate({ type : "blob" });
-saveAs(blob, "Prototype.zip");
+  var stripText = function (text, additional) {
+    if (!text) {
+      return '';
+    }
+    var stringsToRemove = [/<b>/g, /<\/b>/g, /<i>/g, /<\/i>/g];
+    stringsToRemove = stringsToRemove.concat(additional);
+    $.each(stringsToRemove, function (index, stringToRemove) {
+      text = text.replace(stringToRemove, '');
+    });
+    return text.trim();
+  };
+}

@@ -19,7 +19,7 @@
   "content_scripts": [
     {
 	  "matches": [ "https://workflowy.com/s/*" ],
-      "js": [ "jquery-2.1.4.min.js", "jszip.min.js", "FileSaver.min.js" ]
+      "js": [ "jquery-2.1.4.min.js", "jszip.min.js", "FileSaver.min.js", "htmlGenerator.js", "converter.js" ]
     }
   ]
 }

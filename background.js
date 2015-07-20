@@ -1,3 +1,3 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
-  chrome.tabs.executeScript(null, { file: "converter.js" });
+  chrome.tabs.executeScript(null, { file: "startContentProcessor.js" });
 });
