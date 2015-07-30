@@ -1,0 +1,223 @@
+﻿body {
+  font: 16px Helvetica, Arial, sans-serif;
+  color: #666;
+}
+
+a {
+  color: #0077FF;
+}
+
+
+.placeholder {
+  box-sizing:border-box;
+  background-color: #F2F2F2;
+  margin: 1rem 0;
+  padding: 0.25rem;
+  padding-bottom: 0.5rem;
+  white-space: pre-line;
+  height: 250px;
+}
+
+.mainNav {
+    padding: 0;
+    margin: 0;
+    font-size: 0.75em;
+    background-color: #ccc;
+}
+
+.localNav {
+    margin-top: 0.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.75em;
+    padding: 0;
+    background-color: #ccc;
+}
+
+.mainNav a,
+.localNav a {
+  display: inline-block;
+  padding: 1rem;
+  text-decoration: none;
+}
+
+
+.selected {
+  background-color: #333;
+}
+
+a.selected {
+  color: #00B7FF;
+}
+
+
+h1 {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin: 0.4rem 0 1rem 0;
+  font-weight: normal;
+}
+
+.mainNav .audience-groups,
+.mainNav .brand-measurement,
+.mainNav .youth,
+.mainNav .az,
+.mainNav .contact {
+  opacity: 0.5;
+}
+
+.note {
+  display: none;
+  font-size: 0.75rem;
+}
+
+.notes .note {
+  display: block;
+}
+
+.notes .p2 {
+  opacity: 0.5;
+}
+
+.note-hashes {
+  margin-bottom: 1em;
+}
+
+
+.filter,
+.title,
+.navigation,
+.subtitle,
+.broadcast,
+.context {
+  height: auto;
+}
+
+.navigation.episode {
+  position: relative;
+  height: 150px;
+  background-image: url(../images/episode.png);
+  background-repeat: space no-repeat;
+  background-position: center center;
+}
+
+.navigation.quarter {
+  position: relative;
+  height: 150px;
+  background-image: url(../images/quarter.png);
+  background-repeat: space no-repeat;
+  background-position: center center;
+}
+
+.navigation.episode h2,
+.navigation.quarter h2 {
+  text-align: center;
+  font-size: 0.5rem;
+}
+
+.navigation.episode:before,
+.navigation.episode:after,
+.navigation.quarter:before,
+.navigation.quarter:after {
+  font-size: 8rem;
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  top:0;
+  background: #ccc;
+  text-align: center;
+  line-height: 1em;
+}
+
+.navigation.episode:before,
+.navigation.quarter:before {
+  content: '<';
+  left:0;
+}
+
+.navigation.episode:after, 
+.navigation.quarter:after {
+  content: '>';
+  right:0;
+}
+
+
+.image {
+  height: 250px;
+  background-image: url(../images/image.png);
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
+
+.genre {
+  height: 100px;
+  background-image: url(../images/genre-tags.png);
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+
+
+.graph {
+  height: 300px;
+  background-image: url(../images/bar-graph.png);
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
+
+.line-graph,
+.overnights,
+.twitter {
+  height: 300px;
+  background-image: url(../images/line-graph.png);
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
+
+
+.demographics {
+  height: 300px;
+  background-image: url(../images/pie-chart.png);
+  background-repeat: space no-repeat;
+  background-position: center center; 
+}
+
+.feedback {
+  height: 400px;
+  background-image: url(../images/quote.png);
+  background-repeat: repeat-y;
+  background-position: center center; 
+}
+
+
+.directory {
+  height: 500px;
+  background-image: url(../images/contact.png);
+  background-repeat: space space;
+  background-position: center center; 
+}
+
+.articles {
+  height: 300px;
+  background-image: url(../images/report.png);
+  background-repeat: space space;
+  background-position: center center; 
+}
+
+
+.programmes {
+  height: 400px;
+  background-image: url(../images/programme.png);
+  background-repeat: space space;
+  background-position: center center; 
+}
+
+
+.synopsis,
+.headlines {
+  height: 200px;
+  background-image: url(../images/headline.png);
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
