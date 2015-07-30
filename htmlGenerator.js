@@ -1,29 +1,43 @@
-﻿var HtmlGenerator = function () {
-  this.docType = function() {
-    return "<!doctype html>";
+﻿var HtmlGenerator = function() {
+  var self = this;
+
+  self.getHtml = function(node, title, navigationObject) {
+    return self.docType() + self.tag('html', self.head(title) + self.body(node, navigationObject));
   };
 
-  this.tag = function(tagName, content) {
-    return "<" + tagName + ">" + content + "</" + tagName + ">";
+  self.docType = function () {
+    return '<!doctype html>';
   };
 
-  this.head = function(title) {
-    return this.tag("head",
-      this.tag("title", title)
+  self.tag = function (tagName, content, attributes) {
+    attributes = attributes || {};
+    var attrString = Object.keys(attributes).map(function(item) {
+       return item + ':"' + attributes[item] + '"';
+    }).join(' ');
+    return '<' + tagName + ' ' + attrString + '>' + content + '</' + tagName + '>';
+  };
+
+  self.head = function (title) {
+    return self.tag('head',
+      self.tag('title', title)
     );
   };
 
-  this.navigation = function(links) {
-    var listItems = "";
-    for (var i = 0; i < links.length; i++) {
-      listItems += this.tag("li", "<a href='" + links[i].href + "'>" + links[i].displayText + "</a>")
-    }
-    return this.tag("ul", listItems);
-  };
-
-  this.body = function (title, navigation) {
-    return this.tag("body",
-      navigation + this.tag("p", "Hello, this is " + title + ".")
+  self.body = function (node, navigationObject) {
+    return self.tag('body',
+      self.navigation(navigationObject) + self.tag('p', 'Hello, this is a page.')
     );
   };
-}
+
+  self.navigation = function (navigationObject) {
+    return navigationObject.map(function(navigationLinks) {
+      return self.navigationBar(navigationLinks);
+    }).join('');
+  };
+
+  self.navigationBar = function (navigationLinks) {
+    return self.tag('ul', navigationLinks.map(function(link) {
+      return self.tag("li", self.tag('a', link.displayText, { href: link.href }));
+    }).join(''));
+  };
+};
