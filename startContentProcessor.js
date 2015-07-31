@@ -7,4 +7,6 @@ var parsedOpml = $.parseXML(opml);
 var xml = $(parsedOpml);
 
 var converter = new Converter(xml);
-saveAs(converter.GetZippedHtmlFiles(), "Prototype.zip");
+converter.GetZippedHtmlFiles(function (data) {
+  saveAs(data, "Prototype.zip");
+});

@@ -1,8 +1,8 @@
 ﻿var HtmlGenerator = function() {
   var self = this;
 
-  self.getHtml = function(node, title, navigationObject) {
-    return self.docType() + self.tag('html', self.head(title) + self.body(node, navigationObject));
+  self.getHtml = function(node, title, navigationObject, navLevel) {
+    return self.docType() + self.tag('html', self.head(title, navLevel) + self.body(node, navigationObject));
   };
 
   self.docType = function () {
@@ -11,21 +11,27 @@
 
   self.tag = function (tagName, content, attributes) {
     attributes = attributes || {};
-    var attrString = Object.keys(attributes).map(function(item) {
-       return item + '="' + attributes[item] + '"';
+    var attrString = Object.keys(attributes).map(function (item) {
+      return (item == 'className' ? 'class' : item) + '="' + attributes[item] + '"';
     }).join(' ');
-    return '<' + tagName + ' ' + attrString + '>' + content + '</' + tagName + '>';
+    attrString = attrString ? ' ' + attrString : '';
+    return '<' + tagName + attrString + '>' + content + '</' + tagName + '>';
   };
 
-  self.head = function (title) {
+  self.head = function (title, navLevel) {
     return self.tag('head',
-      self.tag('title', title)
+      self.tag('title', title) +
+      self.tag('link', '', { rel: 'stylesheet', href: '../'.repeat(navLevel + 1) + 'stylesheets/style.css' }) +
+      self.tag('script', '', { src: '../'.repeat(navLevel + 1) + 'javascripts/jquery-2.1.4.min.js' }) +
+      self.tag('script', '', { src: '../'.repeat(navLevel + 1) + 'javascripts/script.js' })
     );
   };
 
   self.body = function (node, navigationObject) {
     return self.tag('body',
-      self.navigation(navigationObject) + self.tag('p', 'Hello, this is a page.')
+      self.tag('h1', 'BBC Audiences') +
+      self.navigation(navigationObject) +
+      self.tag('p', 'Hello, this is a page.')
     );
   };
 
@@ -36,8 +42,8 @@
   };
 
   self.navigationBar = function (navigationLinks) {
-    return self.tag('ul', navigationLinks.map(function(link) {
-      return self.tag("li", self.tag('a', link.displayText, { href: link.path }));
-    }).join(''));
+    return self.tag('div', navigationLinks.map(function(link) {
+      return self.tag('a', link.displayText, { href: link.path });
+    }).join(''), { className: 'localNav' });
   };
 };

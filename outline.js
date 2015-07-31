@@ -34,6 +34,7 @@
     });
   });
   self.htmlPages = [];
+  self.navLevel = parentNavigationObject.length;
 
   self.process = function () {
     var childPages = self.getChildPages();
@@ -41,7 +42,7 @@
     if (isPage(self.title)) {
       self.htmlPages.push({
         filePath: self.filePath + '/' + self.fileName + '.html',
-        content: self.generator.getHtml(self.node, self.title, self.navigationObject)
+        content: self.generator.getHtml(self.node, self.title, self.navigationObject, self.navLevel)
       });
     }
     self.processChildren(childPages);
