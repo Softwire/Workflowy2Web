@@ -2,7 +2,7 @@
   var self = this;
 
   self.getHtml = function(node, title, navigationObject, navLevel) {
-    return self.docType() + self.tag('html', self.head(title, navLevel) + self.body(node, navigationObject));
+    return self.docType() + self.tag('html', self.head(title, navLevel) + self.body(node, title, navigationObject));
   };
 
   self.docType = function () {
@@ -27,23 +27,27 @@
     );
   };
 
-  self.body = function (node, navigationObject) {
+  self.body = function (node, title, navigationObject) {
     return self.tag('body',
       self.tag('h1', 'BBC Audiences') +
-      self.navigation(navigationObject) +
+      self.navigation(navigationObject, title) +
       self.tag('p', 'Hello, this is a page.')
     );
   };
 
-  self.navigation = function (navigationObject) {
+  self.navigation = function (navigationObject, title) {
     return navigationObject.map(function(navigationLinks) {
-      return self.navigationBar(navigationLinks);
+      return self.navigationBar(navigationLinks, title);
     }).join('');
   };
 
-  self.navigationBar = function (navigationLinks) {
+  self.navigationBar = function (navigationLinks, title) {
     return self.tag('div', navigationLinks.map(function(link) {
-      return self.tag('a', link.displayText, { href: link.path });
+      var attributes = { href: link.path };
+      if (title == link.displayText) {
+        attributes.className = 'selected';
+      }
+      return self.tag('a', link.displayText, attributes);
     }).join(''), { className: 'localNav' });
   };
 };
