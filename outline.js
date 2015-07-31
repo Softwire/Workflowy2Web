@@ -26,7 +26,7 @@
   self.fileName = fileName;
   self.filePath = filePath;
   self.navigationObject = parentNavigationObject.map(function (navBar) {
-    return navBar.map(function (index, link) {
+    return navBar.map(function (link) {
       return {
         displayText: link.displayText,
         path: '../' + link.path
@@ -63,7 +63,7 @@
   self.updateNavigationObject = function(childPages) {
     if (childPages.length > 0) {
       self.navigationObject.push(childPages.map(function (childPage) {
-        return { displayText: childPage.title, path: childPage.fileName };
+        return { displayText: childPage.title, path: (self.fileName ? (self.fileName + '/') : '') + childPage.fileName + '.html' };
       }));
     }
   };

@@ -12,7 +12,7 @@
   self.tag = function (tagName, content, attributes) {
     attributes = attributes || {};
     var attrString = Object.keys(attributes).map(function(item) {
-       return item + ':"' + attributes[item] + '"';
+       return item + '="' + attributes[item] + '"';
     }).join(' ');
     return '<' + tagName + ' ' + attrString + '>' + content + '</' + tagName + '>';
   };
@@ -37,7 +37,7 @@
 
   self.navigationBar = function (navigationLinks) {
     return self.tag('ul', navigationLinks.map(function(link) {
-      return self.tag("li", self.tag('a', link.displayText, { href: link.href }));
+      return self.tag("li", self.tag('a', link.displayText, { href: link.path }));
     }).join(''));
   };
 };

@@ -4,9 +4,8 @@
   this.generator = new HtmlGenerator();
 
   this.GetZippedHtmlFiles = function () {
-    var bodyNode = new Outline(this.source.find('body'), 'Top level title', '', '', []);
+    var bodyNode = new Outline(this.source.find('body'), '', 'a', 'a', []);
     this.htmlPages = bodyNode.process();
-    this.htmlPages.shift();
 
     var zip = new JSZip();
     $.each(this.htmlPages, function (index, page) {
