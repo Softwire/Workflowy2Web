@@ -53,9 +53,14 @@
     var pages = [];
     $.each($(node).children(), function (index, child) {
       var childTitle = stripText($(child).attr('text'));
-      var childFileName = stripText(childTitle, true).toLowerCase();
       if (isPage(childTitle)) {
-        pages.push({ title: childTitle, fileName: childFileName, node: child });
+        if (childTitle[0] == '[') {
+          $.each(childTitle.substring(1, childTitle.length - 1).split(','), function(index, subTitle) {
+            pages.push({ title: subTitle, fileName: stripText(subTitle, true).toLowerCase(), node: child });
+          });
+        } else {
+          pages.push({ title: childTitle, fileName: stripText(childTitle, true).toLowerCase(), node: child });
+        }
       }
     });
     return pages;
