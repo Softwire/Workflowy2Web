@@ -56,7 +56,7 @@ h1 {
 
 h2 {
   margin: 0.4rem 0 1rem 0;
-  font-weight: normal;
+  font-weight: bold;
 }
 
 .mainNav .audience-groups,

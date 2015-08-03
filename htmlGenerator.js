@@ -51,19 +51,19 @@
   };
 
   self.navigation = function (navigationObject) {
-    return navigationObject.map(function(navigationLinks) {
-      return self.navigationBar(navigationLinks);
+    return navigationObject.map(function(navigationLinks, index) {
+      return self.navigationBar(navigationLinks, index == 0);
     }).join('');
   };
 
-  self.navigationBar = function (navigationLinks) {
+  self.navigationBar = function (navigationLinks, mainNav) {
     return self.tag('div', navigationLinks.map(function(link) {
       var attributes = { href: link.path };
       if (link.selected) {
         attributes.className = 'selected';
       }
       return self.tag('a', link.displayText, attributes);
-    }).join(''), { className: 'localNav' });
+    }).join(''), { className: mainNav ? 'mainNav' : 'localNav' });
   };
 
   self.pageContent = function(node) {
