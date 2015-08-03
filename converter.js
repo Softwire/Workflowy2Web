@@ -13,6 +13,9 @@
     $.each(self.htmlPages, function (index, page) {
       zip.file(page.filePath, page.content);
     });
+
+    var imageFileNames = ['bar-graph', 'contact', 'episode', 'genre-tags', 'headline',
+      'line-graph', 'pie-chart', 'programme', 'quarter', 'quote', 'report'];
     
     //Import javascript and stylesheets
     async.series([
@@ -22,10 +25,14 @@
         function (callback) {
           self.addExistingFile(zip, chrome.extension.getURL('resources/jquery-2.1.4.txt'), 'javascripts/jquery-2.1.4.min.js', callback);
         },
-        function(callback) {
+        function (callback) {
           self.addExistingFile(zip, chrome.extension.getURL('resources/jquery-2.1.4.txt'), 'javascripts/script.js', callback);
         }
-      ], function () {
+      ].concat(imageFileNames.map(function(imageFileName) {
+        return function(callback) {
+          self.addExistingFile(zip, chrome.extension.getURL('resources/images/' + imageFileName + '.png'), 'images/' + imageFileName + '.png', callback);
+        };
+      })), function () {
       callback(zip.generate({ type: 'blob' }));
     });
   };
