@@ -29,7 +29,8 @@
     return navBar.map(function (link) {
       return {
         displayText: link.displayText,
-        path: '../' + link.path
+        path: '../' + link.path,
+        selected: link.selected || link.displayText == self.title
       };
     });
   });
@@ -69,7 +70,7 @@
   self.updateNavigationObject = function(childPages) {
     if (childPages.length > 0) {
       self.navigationObject.push(childPages.map(function (childPage) {
-        return { displayText: childPage.title, path: (self.fileName ? (self.fileName + '/') : '') + childPage.fileName + '.html' };
+        return { displayText: childPage.title, path: (self.fileName ? (self.fileName + '/') : '') + childPage.fileName + '.html', selected: false };
       }));
     }
   };

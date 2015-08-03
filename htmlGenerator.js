@@ -13,16 +13,12 @@
     }
     return text.trim();
   };
-
-  var isPage = function (title) {
-    return title && title.toLowerCase().indexOf("content") < 0 && title.toLowerCase().indexOf("no sub-nav") < 0;
-  };
   /* End of utility functions */
   
   var self = this;
 
   self.getHtml = function(node, title, navigationObject, navLevel) {
-    return self.docType() + self.tag('html', self.head(title, navLevel) + self.body(node, title, navigationObject));
+    return self.docType() + self.tag('html', self.head(title, navLevel) + self.body(node, navigationObject));
   };
 
   self.docType = function () {
@@ -42,29 +38,28 @@
     return self.tag('head',
       self.tag('title', title) +
       self.tag('link', '', { rel: 'stylesheet', href: '../'.repeat(navLevel + 1) + 'stylesheets/style.css' }) +
-      self.tag('script', '', { src: '../'.repeat(navLevel + 1) + 'javascripts/jquery-2.1.4.min.js' }) +
-      self.tag('script', '', { src: '../'.repeat(navLevel + 1) + 'javascripts/script.js' })
+      self.notesToggleFunction()
     );
   };
 
-  self.body = function (node, title, navigationObject) {
+  self.body = function (node, navigationObject) {
     return self.tag('body',
       self.tag('h1', 'BBC Audiences') +
-      self.navigation(navigationObject, title) +
+      self.navigation(navigationObject) +
       self.pageContent(node)
     );
   };
 
-  self.navigation = function (navigationObject, title) {
+  self.navigation = function (navigationObject) {
     return navigationObject.map(function(navigationLinks) {
-      return self.navigationBar(navigationLinks, title);
+      return self.navigationBar(navigationLinks);
     }).join('');
   };
 
-  self.navigationBar = function (navigationLinks, title) {
+  self.navigationBar = function (navigationLinks) {
     return self.tag('div', navigationLinks.map(function(link) {
       var attributes = { href: link.path };
-      if (title == link.displayText) {
+      if (link.selected) {
         attributes.className = 'selected';
       }
       return self.tag('a', link.displayText, attributes);
@@ -86,8 +81,9 @@
     }).join('');
   };
 
-  self.placeholder = function(node) {
-    var notesLines = stripText($(node).attr('_note')).split('\n');
+  self.placeholder = function (node) {
+    var notes = stripText($(node).attr('_note'));
+    var notesLines = notes.split('\n');
     var notesClasses = [ 'placeholder' ];
     $.each(notesLines, function(index, line) {
       if (line.indexOf('#') > -1) {
@@ -96,6 +92,23 @@
       }
     });
     var heading = stripText($(node).attr('text'));
-    return self.tag('div', self.tag('h2', heading), { className: notesClasses.join(' ').toLowerCase() });
+    return self.tag('div', self.tag('h2', heading) + self.tag('span', notes, { className: 'note' }), { className: notesClasses.join(' ').toLowerCase() });
+  };
+
+  self.notesToggleFunction = function () {
+    return self.tag('script',
+      'document.onkeypress = function(e) {' +
+        'var body = document.body;' +
+        'var spaceKeyCode = 32;' +
+        'if (e.keyCode == spaceKeyCode && e.shiftKey) {' +
+          'if (body.classList.contains("notes")) {' +
+            'body.classList.remove("notes");' +
+          '} else {' +
+            'body.classList.add("notes");' +
+          '}' +
+        '}' +
+        'return false;' +
+      '};'
+    );
   };
 };
