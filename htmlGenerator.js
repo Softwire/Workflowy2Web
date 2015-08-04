@@ -69,7 +69,8 @@
   self.pageContent = function(node) {
     var contentNode = $(node).children('[text=Content]');
     if (contentNode.length == 0) {
-      return 'Page content not found';
+      var notes = stripText($(node).attr('_note'));
+      return self.tag('div' , notes , { className: 'contentMissing' });
     }
     if (contentNode.children().first().attr('text')[0] == '#') {
       var nodeToFind = contentNode.children().first().attr('text').replace(/#/g, '');

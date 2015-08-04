@@ -84,6 +84,9 @@ h2 {
   margin-bottom: 1em;
 }
 
+.contentMissing {
+  font-style: italic;
+}
 
 .filter,
 .title,
