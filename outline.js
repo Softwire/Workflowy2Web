@@ -15,7 +15,7 @@
   };
 
   var isPage = function (title) {
-    return title && title.toLowerCase().indexOf("content") < 0 && title.toLowerCase().indexOf("no sub-nav") < 0;
+    return title && title.toLowerCase() != "content" && title.toLowerCase().indexOf("no sub-nav") < 0 && title.indexOf("~") != 0;
   };
   /* End of utility functions */
   

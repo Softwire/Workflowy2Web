@@ -69,8 +69,7 @@
   self.pageContent = function(node) {
     var contentNode = $(node).children('[text=Content]');
     if (contentNode.length == 0) {
-      var notes = stripText($(node).attr('_note'));
-      return self.tag('div' , notes , { className: 'contentMissing' });
+      return self.tag('div', self.getNotes(node).join('\n'), { className: 'contentMissing' });
     }
     if (contentNode.children().first().attr('text')[0] == '#') {
       var nodeToFind = contentNode.children().first().attr('text').replace(/#/g, '');
@@ -83,17 +82,23 @@
   };
 
   self.placeholder = function (node) {
-    var notes = stripText($(node).attr('_note'));
-    var notesLines = notes.split('\n');
+    var notesLines = self.getNotes(node);
     var notesClasses = [ 'placeholder' ];
-    $.each(notesLines, function(index, line) {
-      if (line.indexOf('#') > -1) {
-        line = stripText(line).replace(/#/g, '').replace(/\(/g, '').replace(/\)/g, '');
-        notesClasses = notesClasses.concat(line.split(' '));
-      }
+    $.each(notesLines, function (index, line) {
+      notesClasses = notesClasses.concat(line.split(' ').filter(function(word) {
+        return word.indexOf('#') == 0;
+      }).map(function(className) {
+        return className.substring(1);
+      }));
     });
     var heading = stripText($(node).attr('text'));
-    return self.tag('div', self.tag('h2', heading) + self.tag('span', notes, { className: 'note' }), { className: notesClasses.join(' ').toLowerCase() });
+    return self.tag('div', self.tag('h2', heading) + self.tag('span', notesLines.join('\n'), { className: 'note' }), { className: notesClasses.join(' ').toLowerCase() });
+  };
+
+  self.getNotes = function(node) {
+    return stripText($(node).attr('_note')).split('\n').filter(function(line) {
+      return line.indexOf('~') != 0;
+    });
   };
 
   self.notesToggleFunction = function () {
