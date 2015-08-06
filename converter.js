@@ -2,7 +2,8 @@
   var source = xml;
 
   this.GetZippedHtmlFiles = function (callback) {
-    var bodyNode = new Outline(source.find('body'), siteTitle, new HtmlGenerator(), '', 'a', 'a', []);
+    //TODO: Note this creates two nested folders called html which isn't the ideal file structure...
+    var bodyNode = new Outline(source.find('body'), siteTitle, new HtmlGenerator(), '', 'html', 'html', []);
     var htmlPages = bodyNode.process();
 
     var zip = new JSZip();
