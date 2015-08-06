@@ -1,8 +1,8 @@
-﻿var Converter = function (xml) {
+﻿var Converter = function (xml, siteTitle) {
   var source = xml;
 
   this.GetZippedHtmlFiles = function (callback) {
-    var bodyNode = new Outline(source.find('body'), new HtmlGenerator(), '', 'a', 'a', []);
+    var bodyNode = new Outline(source.find('body'), siteTitle, new HtmlGenerator(), '', 'a', 'a', []);
     var htmlPages = bodyNode.process();
 
     var zip = new JSZip();

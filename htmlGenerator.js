@@ -1,5 +1,5 @@
 ﻿var HtmlGenerator = function() {
-  this.getHtml = function (node, title, navigationObject, navLevel) {
+  this.getHtml = function (node, siteTitle, title, navigationObject, navLevel) {
     var doc = docType() + tag('html', head(title, navLevel) + body(node, navigationObject));
     var dashRegex = new RegExp(String.fromCharCode(8211), 'g');
     var spaceRegex = new RegExp(String.fromCharCode(160), 'g');
@@ -29,7 +29,7 @@
 
   function body(node, navigationObject) {
     return tag('body',
-      tag('h1', 'BBC Audiences') +
+      tag('h1', siteTitle) +
       navigation(navigationObject) +
       pageContent(node)
     );

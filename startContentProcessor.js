@@ -6,7 +6,9 @@ $('#exportPopup').parent().find('.ui-icon-closethick').click();
 var parsedOpml = $.parseXML(opml);
 var xml = $(parsedOpml);
 
-var converter = new Converter(xml);
+var siteTitle = $('.mainTreeRoot > .name').text();
+
+var converter = new Converter(xml, siteTitle);
 converter.GetZippedHtmlFiles(function (data) {
   saveAs(data, "Prototype.zip");
 });

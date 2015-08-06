@@ -1,4 +1,4 @@
-﻿var Outline = function (node, generator, title, fileName, filePath, parentNavigationObject) {
+﻿var Outline = function (node, siteTitle, generator, title, fileName, filePath, parentNavigationObject) {
   var navigationObject = parentNavigationObject.map(function (navBar) {
     return navBar.map(function (link) {
       return {
@@ -17,7 +17,7 @@
     if (isPage(title)) {
       htmlPages.push({
         filePath: filePath + '/' + fileName + '.html',
-        content: generator.getHtml(node, title, navigationObject, navLevel)
+        content: generator.getHtml(node, siteTitle, title, navigationObject, navLevel)
       });
     }
     processChildren(childPages);
@@ -51,7 +51,7 @@
 
   function processChildren(childPages) {
     $.each(childPages, function (index, childPage) {
-      var outline = new Outline(childPage.node, generator, childPage.title, childPage.fileName, filePath + '/' + fileName, navigationObject);
+      var outline = new Outline(childPage.node, siteTitle, generator, childPage.title, childPage.fileName, filePath + '/' + fileName, navigationObject);
       htmlPages = htmlPages.concat(outline.process());
     });
   };
