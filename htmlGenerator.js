@@ -17,8 +17,11 @@
   
   var self = this;
 
-  self.getHtml = function(node, title, navigationObject, navLevel) {
-    return self.docType() + self.tag('html', self.head(title, navLevel) + self.body(node, navigationObject));
+  self.getHtml = function (node, title, navigationObject, navLevel) {
+    var doc = self.docType() + self.tag('html', self.head(title, navLevel) + self.body(node, navigationObject));
+    var dashRegex = new RegExp(String.fromCharCode(8211), 'g');
+    var spaceRegex = new RegExp(String.fromCharCode(160), 'g');
+    return doc.replace(dashRegex, '-').replace(spaceRegex, ' ');
   };
 
   self.docType = function () {
@@ -103,18 +106,40 @@
 
   self.notesToggleFunction = function () {
     return self.tag('script',
-      'document.onkeypress = function(e) {' +
+      'window.onload = function() {' +
         'var body = document.body;' +
-        'var spaceKeyCode = 32;' +
-        'if (e.keyCode == spaceKeyCode && e.shiftKey) {' +
-          'if (body.classList.contains("notes")) {' +
-            'body.classList.remove("notes");' +
-          '} else {' +
-            'body.classList.add("notes");' +
-          '}' +
+        'var list = [].slice.call(document.querySelectorAll("a"));' +
+        'function getParameterByName(name) {' +
+          'name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");' +
+          'var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),' +
+            'results = regex.exec(location.search);' +
+          'return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));' +
         '}' +
-        'return false;' +
-      '};'
+        'function addNotes() {' +
+          'body.classList.add("notes");' +
+          'list.forEach(function(link) { link.setAttribute("href", link.getAttribute("href") + "?showNotes=1"); });' +
+        '}' +
+        'function removeNotes() {' +
+          'body.classList.remove("notes");' +
+          'list.forEach(function(link) { link.setAttribute("href", link.getAttribute("href").replace("?showNotes=1", "")); });' +
+        '}' +
+
+        'if (location.href.indexOf("?showNotes=1") > -1) {' +
+          'addNotes();' +
+        '}' +
+
+        'document.onkeypress = function(e) {' +
+          'var spaceKeyCode = 32;' +
+          'if (e.keyCode == spaceKeyCode && e.shiftKey) {' +
+            'if (body.classList.contains("notes")) {' +
+              'removeNotes();' +
+            '} else {' +
+              'addNotes();' +
+            '}' +
+          '}' +
+          'return false;' +
+        '};' +
+      '}'
     );
   };
 };
