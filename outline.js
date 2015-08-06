@@ -1,56 +1,30 @@
-﻿var Outline = function (node, title, fileName, filePath, parentNavigationObject) {
-  /* Utility functions TODO: put somewhere else */
-  var stripText = function (text, isFileName) {
-    if (!text) {
-      return '';
-    }
-    var stringsToRemove = [/<b>/g, /<\/b>/g, /<i>/g, /<\/i>/g];
-    $.each(stringsToRemove, function (index, stringToRemove) {
-      text = text.replace(stringToRemove, '');
-    });
-    if (isFileName) {
-      text = text.replace(/[^a-zA-Z0-9]+/g, "");
-    }
-    return text.trim();
-  };
-
-  var isPage = function (title) {
-    return title && title.toLowerCase() != "content" && title.toLowerCase().indexOf("no sub-nav") < 0 && title.indexOf("~") != 0;
-  };
-  /* End of utility functions */
-  
-  var self = this;
-  self.node = node;
-  self.generator = new HtmlGenerator();
-  self.title = title;
-  self.fileName = fileName;
-  self.filePath = filePath;
-  self.navigationObject = parentNavigationObject.map(function (navBar) {
+﻿var Outline = function (node, generator, title, fileName, filePath, parentNavigationObject) {
+  var navigationObject = parentNavigationObject.map(function (navBar) {
     return navBar.map(function (link) {
       return {
         displayText: link.displayText,
         path: '../' + link.path,
-        selected: link.selected || link.displayText == self.title
+        selected: link.selected || link.displayText == title
       };
     });
   });
-  self.htmlPages = [];
-  self.navLevel = parentNavigationObject.length;
+  var htmlPages = [];
+  var navLevel = parentNavigationObject.length;
 
-  self.process = function () {
-    var childPages = self.getChildPages();
-    self.updateNavigationObject(childPages);
-    if (isPage(self.title)) {
-      self.htmlPages.push({
-        filePath: self.filePath + '/' + self.fileName + '.html',
-        content: self.generator.getHtml(self.node, self.title, self.navigationObject, self.navLevel)
+  this.process = function () {
+    var childPages = getChildPages();
+    updateNavigationObject(childPages);
+    if (isPage(title)) {
+      htmlPages.push({
+        filePath: filePath + '/' + fileName + '.html',
+        content: generator.getHtml(node, title, navigationObject, navLevel)
       });
     }
-    self.processChildren(childPages);
-    return self.htmlPages;
+    processChildren(childPages);
+    return htmlPages;
   };
 
-  self.getChildPages = function () {
+  function getChildPages() {
     var pages = [];
     $.each($(node).children(), function (index, child) {
       var childTitle = stripText($(child).attr('text'));
@@ -67,18 +41,18 @@
     return pages;
   };
 
-  self.updateNavigationObject = function(childPages) {
+  function updateNavigationObject(childPages) {
     if (childPages.length > 0) {
-      self.navigationObject.push(childPages.map(function (childPage) {
-        return { displayText: childPage.title, path: (self.fileName ? (self.fileName + '/') : '') + childPage.fileName + '.html', selected: false };
+      navigationObject.push(childPages.map(function (childPage) {
+        return { displayText: childPage.title, path: (fileName ? (fileName + '/') : '') + childPage.fileName + '.html', selected: false };
       }));
     }
   };
 
-  self.processChildren = function(childPages) {
+  function processChildren(childPages) {
     $.each(childPages, function (index, childPage) {
-      var outline = new Outline(childPage.node, childPage.title, childPage.fileName, self.filePath + '/' + self.fileName, self.navigationObject);
-      self.htmlPages = self.htmlPages.concat(outline.process());
+      var outline = new Outline(childPage.node, generator, childPage.title, childPage.fileName, filePath + '/' + fileName, navigationObject);
+      htmlPages = htmlPages.concat(outline.process());
     });
   };
 };

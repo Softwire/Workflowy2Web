@@ -1,34 +1,16 @@
 ﻿var HtmlGenerator = function() {
-  /* Utility functions TODO: put somewhere else */
-  var stripText = function (text, isFileName) {
-    if (!text) {
-      return '';
-    }
-    var stringsToRemove = [/<b>/g, /<\/b>/g, /<i>/g, /<\/i>/g];
-    $.each(stringsToRemove, function (index, stringToRemove) {
-      text = text.replace(stringToRemove, '');
-    });
-    if (isFileName) {
-      text = text.replace(/[^a-zA-Z0-9]+/g, "");
-    }
-    return text.trim();
-  };
-  /* End of utility functions */
-  
-  var self = this;
-
-  self.getHtml = function (node, title, navigationObject, navLevel) {
-    var doc = self.docType() + self.tag('html', self.head(title, navLevel) + self.body(node, navigationObject));
+  this.getHtml = function (node, title, navigationObject, navLevel) {
+    var doc = docType() + tag('html', head(title, navLevel) + body(node, navigationObject));
     var dashRegex = new RegExp(String.fromCharCode(8211), 'g');
     var spaceRegex = new RegExp(String.fromCharCode(160), 'g');
     return doc.replace(dashRegex, '-').replace(spaceRegex, ' ');
   };
 
-  self.docType = function () {
+  function docType() {
     return '<!doctype html>';
   };
 
-  self.tag = function (tagName, content, attributes) {
+  function tag(tagName, content, attributes) {
     attributes = attributes || {};
     var attrString = Object.keys(attributes).map(function (item) {
       return (item == 'className' ? 'class' : item) + '="' + attributes[item] + '"';
@@ -37,42 +19,42 @@
     return '<' + tagName + attrString + '>' + content + '</' + tagName + '>';
   };
 
-  self.head = function (title, navLevel) {
-    return self.tag('head',
-      self.tag('title', title) +
-      self.tag('link', '', { rel: 'stylesheet', href: '../'.repeat(navLevel + 1) + 'stylesheets/style.css' }) +
-      self.notesToggleFunction()
+  function head(title, navLevel) {
+    return tag('head',
+      tag('title', title) +
+      tag('link', '', { rel: 'stylesheet', href: '../'.repeat(navLevel + 1) + 'stylesheets/style.css' }) +
+      notesToggleFunction()
     );
   };
 
-  self.body = function (node, navigationObject) {
-    return self.tag('body',
-      self.tag('h1', 'BBC Audiences') +
-      self.navigation(navigationObject) +
-      self.pageContent(node)
+  function body(node, navigationObject) {
+    return tag('body',
+      tag('h1', 'BBC Audiences') +
+      navigation(navigationObject) +
+      pageContent(node)
     );
   };
 
-  self.navigation = function (navigationObject) {
+  function navigation(navigationObject) {
     return navigationObject.map(function(navigationLinks, index) {
-      return self.navigationBar(navigationLinks, index == 0);
+      return navigationBar(navigationLinks, index == 0);
     }).join('');
   };
 
-  self.navigationBar = function (navigationLinks, mainNav) {
-    return self.tag('div', navigationLinks.map(function(link) {
+  function navigationBar(navigationLinks, mainNav) {
+    return tag('div', navigationLinks.map(function(link) {
       var attributes = { href: link.path };
       if (link.selected) {
         attributes.className = 'selected';
       }
-      return self.tag('a', link.displayText, attributes);
+      return tag('a', link.displayText, attributes);
     }).join(''), { className: mainNav ? 'mainNav' : 'localNav' });
   };
 
-  self.pageContent = function(node) {
+  function pageContent(node) {
     var contentNode = $(node).children('[text=Content]');
     if (contentNode.length == 0) {
-      return self.tag('div', self.getNotes(node).join('\n'), { className: 'contentMissing' });
+      return tag('div', getNotes(node).join('\n'), { className: 'contentMissing' });
     }
     if (contentNode.children().first().attr('text')[0] == '#') {
       var nodeToFind = contentNode.children().first().attr('text').replace(/#/g, '');
@@ -80,12 +62,12 @@
     }
 
     return $.makeArray(contentNode.children()).map(function(outline) {
-      return self.placeholder(outline);
+      return placeholder(outline);
     }).join('');
   };
 
-  self.placeholder = function (node) {
-    var notesLines = self.getNotes(node);
+  function placeholder(node) {
+    var notesLines = getNotes(node);
     var notesClasses = [ 'placeholder' ];
     $.each(notesLines, function (index, line) {
       notesClasses = notesClasses.concat(line.split(' ').filter(function(word) {
@@ -95,17 +77,17 @@
       }));
     });
     var heading = stripText($(node).attr('text'));
-    return self.tag('div', self.tag('h2', heading) + self.tag('span', notesLines.join('\n'), { className: 'note' }), { className: notesClasses.join(' ').toLowerCase() });
+    return tag('div', tag('h2', heading) + tag('span', notesLines.join('\n'), { className: 'note' }), { className: notesClasses.join(' ').toLowerCase() });
   };
 
-  self.getNotes = function(node) {
+  function getNotes(node) {
     return stripText($(node).attr('_note')).split('\n').filter(function(line) {
       return line.indexOf('~') != 0;
     });
   };
 
-  self.notesToggleFunction = function () {
-    return self.tag('script',
+  function notesToggleFunction() {
+    return tag('script',
       'window.onload = function() {' +
         'var body = document.body;' +
         'var list = [].slice.call(document.querySelectorAll("a"));' +
