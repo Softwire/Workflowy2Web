@@ -23,7 +23,7 @@
   "content_scripts": [
     {
 	  "matches": [ "https://workflowy.com/*" ],
-      "js": [ "jquery-2.1.4.min.js", "jszip.min.js", "jszip-utils.min.js", "FileSaver.min.js", "async.min.js", "htmlGenerator.js", "converter.js", "outline.js", "utilities.js" ]
+      "js": [ "lib/jquery-2.1.4.min.js", "lib/jszip.min.js", "lib/jszip-utils.min.js", "lib/FileSaver.min.js", "lib/async.min.js", "src/htmlGenerator.js", "src/converter.js", "src/outline.js", "src/utilities.js" ]
     }
   ],
   "web_accessible_resources": [
