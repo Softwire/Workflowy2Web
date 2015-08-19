@@ -1,13 +1,11 @@
 ﻿var Converter = function (xml, siteTitle) {
-  var source = xml;
-
   this.GetZippedHtmlFiles = function (callback) {
     //TODO: Note this creates two nested folders called html which isn't the ideal file structure...
-    var bodyNode = new Outline(source.find('body'), siteTitle, new HtmlGenerator(), '', 'html', 'html', []);
+    var bodyNode = new Outline(xml.find('body'), siteTitle, new HtmlGenerator(), '', 'html', 'html', []);
     var htmlPages = bodyNode.process();
 
     var zip = new JSZip();
-    $.each(htmlPages, function (index, page) {
+    htmlPages.forEach(function (page) {
       zip.file(page.filePath, page.content);
     });
 

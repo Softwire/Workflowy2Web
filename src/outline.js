@@ -17,7 +17,7 @@
     if (isPage(title)) {
       htmlPages.push({
         filePath: filePath + '/' + fileName + '.html',
-        content: generator.getHtml(node, siteTitle, title, navigationObject, navLevel)
+        content: generator.generate(node, siteTitle, title, navigationObject, navLevel)
       });
     }
     processChildren(childPages);

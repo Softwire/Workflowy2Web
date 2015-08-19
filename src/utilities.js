@@ -3,7 +3,7 @@
     return '';
   }
   var stringsToRemove = [/<b>/g, /<\/b>/g, /<i>/g, /<\/i>/g];
-  $.each(stringsToRemove, function (index, stringToRemove) {
+  stringsToRemove.forEach(function (stringToRemove) {
     text = text.replace(stringToRemove, '');
   });
   if (isFileName) {

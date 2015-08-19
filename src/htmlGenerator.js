@@ -1,6 +1,7 @@
 ﻿var HtmlGenerator = function() {
-  this.getHtml = function (node, siteTitle, title, navigationObject, navLevel) {
-    var doc = docType() + tag('html', head(title, navLevel) + body(node, navigationObject));
+  this.generate = function (node, siteTitle, title, navigationObject, navLevel) {
+    var doc = docType() + tag('html', head(title, navLevel) + body(node, siteTitle, navigationObject));
+    // There must be a better way to convert the character set?
     var dashRegex = new RegExp(String.fromCharCode(8211), 'g');
     var spaceRegex = new RegExp(String.fromCharCode(160), 'g');
     return doc.replace(dashRegex, '-').replace(spaceRegex, ' ');
@@ -27,7 +28,7 @@
     );
   };
 
-  function body(node, navigationObject) {
+  function body(node, siteTitle, navigationObject) {
     return tag('body',
       tag('h1', siteTitle) +
       navigation(navigationObject) +
@@ -56,7 +57,7 @@
     if (contentNode.length == 0) {
       return tag('div', getNotes(node).join('\n'), { className: 'contentMissing' });
     }
-    if (contentNode.children().first().attr('text')[0] == '#') {
+    if (contentNode.children().first().attr('text').match(/##.+##/)) {
       var nodeToFind = contentNode.children().first().attr('text').replace(/#/g, '');
       contentNode = $(node).children('[text*="' + nodeToFind + '"]').children('[text=Content]');
     }
