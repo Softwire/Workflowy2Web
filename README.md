@@ -3,23 +3,31 @@
 A Chrome extension to convert a [Workflowy](https://workflowy.com/) list into a prototype website. Installing the extension adds a button to the Chrome toolbar which converts a Workflowy list into a zipped folder containing a static website consisting of images, stylesheets and html pages.
 
 ## How to get it
-The Workflowy Prototype Converter can be installed from the [Chrome Web Store](https://chrome.google.com/webstore/category/apps).
+The Workflowy Prototype Converter can be installed from the [QQQQQQ Chrome Web Store](https://chrome.google.com/webstore/category/apps).
 
 ## How to use it
-* Sign up to [Workflowy](https://workflowy.com/)
-* Create a new list - have a look at the conversion rules below
+
+Create your site outline in Workflowy, following some content conventions. Click the button in Chrome and it will create HTML files for each of your page nodes, with divs for the content nodes within each page, then zip them up and present them for download. Save and extract the zip, and load the first HTML page in a browser - boom! There's your prototype.
+
+More specifically...
+* Sign up to [Workflowy](https://workflowy.com/) if you haven't already
+* Create a new list node with the title you want for your site
+* Use the Conversion Rules below to structure your site content under that title node
+* Click on the title node, so that Workflowy focuses on it (rather than e.g. its parents)
 * Click the button on the toolbar to trigger your prototype download
+* Save the zip and extract it, and your prototype is ready to go
+* You can apply custom styling by modifying the included "site.css"
 
 ## Conversion rules
- * Each node is converted into a separate page unless it's title is 'Content'
- * Content nodes specify the content of the parent node
-   * If a node does not have a content node the notes attached to the page node are displayed instead.
- * Nodes under content nodes are converted into divs on the page
-   * Hashtags in the notes of each node and converted into CSS classes on the div
-   * The entire notes field for each div is included on the page, its display can be toggled with the shortcut CTRL-SPACE
-* A list of pages with identical content can be specified by a single node called e.g. [Page1, Page2, Page3] with a child content node as normal.
+ * Each node is converted into a separate page unless its title is 'Content'.
+ * Nodes titled 'Content' contain the page content of the parent (Page) node.
+   * If a node does not have a 'Content' node the notes attached to the page node are used as page content instead.
+ * Nodes under 'Content' nodes are converted into divs on the page.
+   * Hashtags in the notes of each node and converted into CSS classes on the div.
+   * The entire notes field for each div is included on the page but hidden by default. Hit CTRL-SPACE to show / hide them.
+* A set of pages with identical content can be specified by a single node called e.g. [Page1, Page2, Page3] with a child 'Content' node and page contents as normal. The converter will create pages for all the page titles listed in the brackets, and replicate the page contents for each one.
 * A page which takes its content from one of its children can be specified by putting a node called e.g. ##ChildPageName## under its content node.
-* Any content (nodes and lines of notes) can be ignored by the converter by prefixing it with ~.
+* You can force any content (nodes and lines of notes) to be ignored by the converter by prefixing it with a tilde character (~).
 
 
 ## For developers
@@ -46,7 +54,7 @@ To debug the code:
 * Open Dev Tools
 * Open the 'Sources' section
 * Select the Content Scripts tab
-* Expand the Content Processor node
+* Expand the Workflowy Prototype Converter node
 
 ### Packaging
 Chrome extensions can be packaged through Google Chrome, if an update is being released the private key will be required.
