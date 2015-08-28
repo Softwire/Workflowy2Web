@@ -1,7 +1,11 @@
 ﻿var Converter = function (xml, siteTitle) {
   this.GetZippedHtmlFiles = function (callback) {
     //TODO: Note this creates two nested folders called html which isn't the ideal file structure...
-    var bodyNode = new Outline(xml.find('body'), siteTitle, new HtmlGenerator(), '', 'html', 'html', []);
+    var topNode = xml.find('body');
+    if (topNode.children().length == 1 && stripText(siteTitle) == stripText(topNode.children().first().attr('text'))) {
+      topNode = topNode.children().first();
+    }
+    var bodyNode = new Outline(topNode, siteTitle, new HtmlGenerator(), '', 'html', 'html', []);
     var htmlPages = bodyNode.process();
 
     var zip = new JSZip();

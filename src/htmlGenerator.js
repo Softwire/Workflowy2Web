@@ -63,11 +63,11 @@
     }
 
     return $.makeArray(contentNode.children()).map(function(outline) {
-      return placeholder(outline);
+      return placeholder(outline, 2);
     }).join('');
   };
 
-  function placeholder(node) {
+  function placeholder(node, headingLevel) {
     var notesLines = getNotes(node);
     var notesClasses = [ 'placeholder' ];
     $.each(notesLines, function (index, line) {
@@ -78,7 +78,11 @@
       }));
     });
     var heading = stripText($(node).attr('text'));
-    return tag('div', tag('h2', heading) + tag('span', notesLines.join('\n'), { className: 'note' }), { className: notesClasses.join(' ').toLowerCase() });
+    var childContent = $.makeArray($(node).children()).map(function (outline) {
+      return placeholder(outline, headingLevel + 1);
+    }).join('');
+    var headingTag = headingLevel < 7 ? 'h' + headingLevel : 'span';
+    return tag('div', tag(headingTag, heading) + tag('span', notesLines.join('\n'), { className: 'note' }) + childContent, { className: notesClasses.join(' ').toLowerCase() });
   };
 
   function getNotes(node) {
