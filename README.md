@@ -24,7 +24,7 @@ More specifically...
    * If a node does not have a 'Content' node the notes attached to the page node are used as page content instead.
  * Nodes under 'Content' nodes are converted into divs on the page.
    * Hashtags in the notes of each node and converted into CSS classes on the div.
-   * The entire notes field for each div is included on the page but hidden by default. Hit CTRL-SPACE to show / hide them.
+   * The entire notes field for each div is included on the page but hidden by default. Hit SHIFT-SPACE to show / hide them.
 * A set of pages with identical content can be specified by a single node called e.g. [Page1, Page2, Page3] with a child 'Content' node and page contents as normal. The converter will create pages for all the page titles listed in the brackets, and replicate the page contents for each one.
 * A page which takes its content from one of its children can be specified by putting a node called e.g. ##ChildPageName## under its content node.
 * You can force any content (nodes and lines of notes) to be ignored by the converter by prefixing it with a tilde character (~).
