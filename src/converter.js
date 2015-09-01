@@ -2,7 +2,10 @@
   this.GetZippedHtmlFiles = function (callback) {
     //TODO: Note this creates two nested folders called html which isn't the ideal file structure...
     var topNode = xml.find('body');
-    if (topNode.children().length == 1 && stripText(siteTitle) == stripText(topNode.children().first().attr('text'))) {
+    // Ignore the top node if there is only one at that level and it matches the site title and it doesn't have a content node
+    if (topNode.children().length == 1 &&
+            stripText(siteTitle) == stripText(topNode.children().first().attr('text')) &&
+            topNode.children().first().children('[text=Content]').length == 0) {
       topNode = topNode.children().first();
     }
     var bodyNode = new Outline(topNode, siteTitle, new HtmlGenerator(), '', 'html', 'html', []);
