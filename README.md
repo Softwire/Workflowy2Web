@@ -16,7 +16,7 @@ More specifically...
 * Click on the title node, so that Workflowy focuses on it (rather than e.g. its parents)
 * Click the button on the toolbar to trigger your prototype download
 * Save the zip and extract it, and your prototype is ready to go
-* You can apply custom styling by modifying the included "site.css"
+* You can apply custom styling by modifying the included "custom.css"
 
 ## Conversion rules
 * Each node is converted into a separate page unless its title is 'Content'.
