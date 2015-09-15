@@ -1,32 +1,34 @@
-# Workflowy Prototype Converter
+# Workflowy2HTML
 
-A Chrome extension to convert a [Workflowy](https://workflowy.com/) list into a prototype website. Installing the extension adds a button to the Chrome toolbar which converts a Workflowy list into a zipped folder containing a static website consisting of images, stylesheets and html pages.
+Workflowy2HTML is a Chrome extension which can convert a [Workflowy](https://workflowy.com/) list representing a content outline for a website into a working prototype of website in static HTML files. Installing the extension adds a button to the Chrome toolbar which converts the currently-viewed Workflowy list into a zipped folder containing images, stylesheets and html pages making up the prototype site.
 
 ## How to get it
 The Workflowy Prototype Converter can be installed from the [QQQQQQ Chrome Web Store](https://chrome.google.com/webstore/category/apps).
 
 ## How to use it
-
-Create your site outline in Workflowy, following some content conventions. Click the button in Chrome and it will create HTML files for each of your page nodes, with divs for the content nodes within each page, then zip them up and present them for download. Save and extract the zip, and load the first HTML page in a browser - boom! There's your prototype.
+Create your site outline in Workflowy, following some content conventions (see below). Click the button in Chrome and it will create HTML files for each of your page nodes, with divs for the content nodes within each page, zip them up and present them for download. Save and extract the zip, and load the first HTML page in a browser - pow! There's your prototype.
 
 More specifically...
 * Sign up to [Workflowy](https://workflowy.com/) if you haven't already
 * Create a new list node with the title you want for your site
-* Use the Conversion Rules below to structure your site content under that title node
+* Use the Content Conventions below to structure your site content under that title node
 * Click on the title node, so that Workflowy focuses on it (rather than e.g. its parents)
 * Click the button on the toolbar to trigger your prototype download
 * Save the zip and extract it, and your prototype is ready to go
 * You can apply custom styling by modifying the included "custom.css"
 
-## Conversion rules
-* Each node is converted into a separate page unless its title is 'Content'.
+## Content Conventions
+* Each node is converted into a separate page unless its title is 'Content' or it is beneath a node with that title.
 * Nodes titled 'Content' contain the page content of the parent (Page) node.
  * If a node does not have a 'Content' node the notes attached to the page node are used as page content instead.
 * Nodes under 'Content' nodes are converted into divs on the page.
- * Hashtags in the notes of each node and converted into CSS classes on the div.
- * The entire notes field for each div is included on the page but hidden by default. Hit SHIFT-SPACE to show / hide them.
+* Hashtags in the title of each node are converted into CSS classes on the div.
+ * Some built-in classes allow easy presentation of common content types.
+ * Other classes can be applied and given custom styling.
+ * See the Styling section below for more on both of the above.
+* The notes field for each div is included on the page but hidden by default. Hit SHIFT-SPACE to show / hide them.
 * A set of pages with identical content can be specified by a single node called e.g. [Page1, Page2, Page3] with a child 'Content' node and page contents as normal. The converter will create pages for all the page titles listed in the brackets, and replicate the page contents for each one.
-* A page which takes its content from one of its children can be specified by putting a node called e.g. ##ChildPageName## under its content node.
+* A page which just shows the content from one of its children can be specified by putting a node called e.g. ##ChildPageName## under its content node.
 * You can force any content (nodes and lines of notes) to be ignored by the converter by prefixing it with a tilde character (~).
 
 ## Styling
