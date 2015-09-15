@@ -19,15 +19,26 @@ More specifically...
 * You can apply custom styling by modifying the included "site.css"
 
 ## Conversion rules
- * Each node is converted into a separate page unless its title is 'Content'.
- * Nodes titled 'Content' contain the page content of the parent (Page) node.
-   * If a node does not have a 'Content' node the notes attached to the page node are used as page content instead.
- * Nodes under 'Content' nodes are converted into divs on the page.
-   * Hashtags in the notes of each node and converted into CSS classes on the div.
-   * The entire notes field for each div is included on the page but hidden by default. Hit SHIFT-SPACE to show / hide them.
+* Each node is converted into a separate page unless its title is 'Content'.
+* Nodes titled 'Content' contain the page content of the parent (Page) node.
+ * If a node does not have a 'Content' node the notes attached to the page node are used as page content instead.
+* Nodes under 'Content' nodes are converted into divs on the page.
+ * Hashtags in the notes of each node and converted into CSS classes on the div.
+ * The entire notes field for each div is included on the page but hidden by default. Hit SHIFT-SPACE to show / hide them.
 * A set of pages with identical content can be specified by a single node called e.g. [Page1, Page2, Page3] with a child 'Content' node and page contents as normal. The converter will create pages for all the page titles listed in the brackets, and replicate the page contents for each one.
 * A page which takes its content from one of its children can be specified by putting a node called e.g. ##ChildPageName## under its content node.
 * You can force any content (nodes and lines of notes) to be ignored by the converter by prefixing it with a tilde character (~).
+
+## Styling
+
+Styles are contained within a "style.css" file and a "custom.css" file. The custom file is left blank for you to add in your own styling to adjust the prototype. The "style.css" file contains a set of built-in styles for particular types of content, as follows. (Add the given hashtag to the node, and the content mentioned will appear in the div.)
+
+**QQ NEEDS CHECKING**
+
+* #line-graph - adds a line graph image
+* #bar-graph - adds a bar graph image
+* #pie-chart - adds a pie chart image
+* #lorem - adds a short paragraph of lorem ipsum (in fact just an image, as it's only CSS styling)
 
 
 ## For developers
