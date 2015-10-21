@@ -22,7 +22,7 @@ More specifically...
 * Nodes titled 'Content' contain the page content of the parent (Page) node.
  * If a node does not have a 'Content' node the notes attached to the page node are used as page content instead.
 * Nodes under 'Content' nodes are converted into divs on the page.
-* Hashtags in the title of each node are converted into CSS classes on the div.
+* Hashtags in the notes field of each node are converted into CSS classes on the div.
  * Some built-in classes allow easy presentation of common content types.
  * Other classes can be applied and given custom styling.
  * See the Styling section below for more on both of the above.
@@ -33,7 +33,7 @@ More specifically...
 
 ## Styling
 
-Styles are contained within a "style.css" file and a "custom.css" file. The custom file is left blank for you to add in your own styling to adjust the prototype. The "style.css" file contains a set of built-in styles for particular types of content, as follows. (Add the given hashtag to the node, and the content mentioned will appear in the div.)
+Styles are contained within a "style.css" file and a "custom.css" file. The custom file is left blank for you to add in your own styling to adjust the prototype. The "style.css" file contains a set of built-in styles for particular types of content, as follows. Add the given hashtag to the notes field (Shift-Enter) on the node, and the content mentioned will appear in the div.
 
 **QQ NEEDS CHECKING**
 
