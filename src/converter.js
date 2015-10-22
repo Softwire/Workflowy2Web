@@ -22,7 +22,8 @@
     //Import javascript and stylesheets
     async.series([
         function (callback) {
-          addExistingFile(zip, chrome.extension.getURL('resources/style.txt'), 'stylesheets/style.css', callback);
+          addExistingFile(zip, chrome.extension.getURL('resources/stylesheets/style.txt'), 'stylesheets/style.css', callback);
+          addExistingFile(zip, chrome.extension.getURL('resources/stylesheets/empty.txt'), 'stylesheets/custom.css', callback);
         }
       ].concat(imageFileNames.map(function(imageFileName) {
         return function (callback) {
