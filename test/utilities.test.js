@@ -28,9 +28,6 @@ describe('utilities', function() {
     it('returns false if title is Content', function() {
       expect(isPage('Content')).toBe(false);
     });
-    it('returns false if title contains "no sub-nav"', function() {
-      expect(isPage('abc-no sub-nav-def')).toBe(false);
-    });
     it('returns false if title starts with ~', function() {
       expect(isPage('~Something')).toBe(false);
     });
