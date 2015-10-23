@@ -16,8 +16,7 @@
       zip.file(page.filePath, page.content);
     });
 
-    var imageFileNames = ['bar-graph', 'contact', 'episode', 'genre-tags', 'headline',
-      'image' ,'line-graph', 'pie-chart', 'programme', 'quarter', 'quote', 'report'];
+    var imageFileNames = ['bar-graph', 'contact', 'text', 'image' ,'line-graph', 'pie-chart', 'quote'];
     
     //Import javascript and stylesheets
     async.series([
