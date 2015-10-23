@@ -7,7 +7,6 @@ a {
   color: #0077FF;
 }
 
-
 .placeholder {
   box-sizing:border-box;
   background-color: #F2F2F2;
@@ -40,7 +39,6 @@ a {
   text-decoration: none;
 }
 
-
 .selected {
   background-color: #333;
 }
@@ -48,7 +46,6 @@ a {
 a.selected {
   color: #00B7FF;
 }
-
 
 h1 {
   margin-bottom: 2rem;
@@ -59,12 +56,25 @@ h2 {
   font-weight: bold;
 }
 
-.mainNav .audience-groups,
-.mainNav .brand-measurement,
-.mainNav .youth,
-.mainNav .az,
-.mainNav .contact {
-  opacity: 0.5;
+.pie-chart {
+  height: 300px;
+  background-image: url(../images/pie-chart.png);
+  background-repeat: space no-repeat;
+  background-position: center center;
+}
+
+.quote {
+  height: 400px;
+  background-image: url(../images/quote.png);
+  background-repeat: repeat-y;
+  background-position: center center;
+}
+
+.text {
+  height: 200px;
+  background-image: url(../images/text.png);
+  background-repeat: no-repeat;
+  background-position: left center;
 }
 
 .note {
@@ -92,59 +102,9 @@ h2 {
 .title,
 .navigation,
 .subtitle,
-.broadcast,
 .context {
   height: auto;
 }
-
-.navigation.episode {
-  position: relative;
-  height: 150px;
-  background-image: url(../images/episode.png);
-  background-repeat: space no-repeat;
-  background-position: center center;
-}
-
-.navigation.quarter {
-  position: relative;
-  height: 150px;
-  background-image: url(../images/quarter.png);
-  background-repeat: space no-repeat;
-  background-position: center center;
-}
-
-.navigation.episode h2,
-.navigation.quarter h2 {
-  text-align: center;
-  font-size: 0.5rem;
-}
-
-.navigation.episode:before,
-.navigation.episode:after,
-.navigation.quarter:before,
-.navigation.quarter:after {
-  font-size: 8rem;
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  top:0;
-  background: #ccc;
-  text-align: center;
-  line-height: 1em;
-}
-
-.navigation.episode:before,
-.navigation.quarter:before {
-  content: '<';
-  left:0;
-}
-
-.navigation.episode:after, 
-.navigation.quarter:after {
-  content: '>';
-  right:0;
-}
-
 
 .image {
   height: 250px;
@@ -153,15 +113,6 @@ h2 {
   background-position: center center; 
 }
 
-.genre {
-  height: 100px;
-  background-image: url(../images/genre-tags.png);
-  background-repeat: no-repeat;
-  background-position: left center; 
-}
-
-
-
 .graph {
   height: 300px;
   background-image: url(../images/bar-graph.png);
@@ -169,58 +120,9 @@ h2 {
   background-position: center center; 
 }
 
-.line-graph,
-.overnights,
-.twitter {
+.line-graph {
   height: 300px;
   background-image: url(../images/line-graph.png);
   background-repeat: no-repeat;
   background-position: center center; 
-}
-
-
-.demographics {
-  height: 300px;
-  background-image: url(../images/pie-chart.png);
-  background-repeat: space no-repeat;
-  background-position: center center; 
-}
-
-.feedback {
-  height: 400px;
-  background-image: url(../images/quote.png);
-  background-repeat: repeat-y;
-  background-position: center center; 
-}
-
-
-.directory {
-  height: 500px;
-  background-image: url(../images/contact.png);
-  background-repeat: space space;
-  background-position: center center; 
-}
-
-.articles {
-  height: 300px;
-  background-image: url(../images/report.png);
-  background-repeat: space space;
-  background-position: center center; 
-}
-
-
-.programmes {
-  height: 400px;
-  background-image: url(../images/programme.png);
-  background-repeat: space space;
-  background-position: center center; 
-}
-
-
-.synopsis,
-.headlines {
-  height: 200px;
-  background-image: url(../images/headline.png);
-  background-repeat: no-repeat;
-  background-position: left center; 
 }
