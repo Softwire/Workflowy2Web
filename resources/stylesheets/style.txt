@@ -56,27 +56,6 @@ h2 {
   font-weight: bold;
 }
 
-.pie-chart {
-  height: 300px;
-  background-image: url(../images/pie-chart.png);
-  background-repeat: space no-repeat;
-  background-position: center center;
-}
-
-.quote {
-  height: 400px;
-  background-image: url(../images/quote.png);
-  background-repeat: repeat-y;
-  background-position: center center;
-}
-
-.text {
-  height: 200px;
-  background-image: url(../images/text.png);
-  background-repeat: no-repeat;
-  background-position: left center;
-}
-
 .note {
   display: none;
   font-size: 0.75rem;
@@ -113,6 +92,20 @@ h2 {
   background-position: center center; 
 }
 
+.quote {
+  height: 400px;
+  background-image: url(../images/quote.png);
+  background-repeat: repeat-y;
+  background-position: center center;
+}
+
+.text {
+  height: 200px;
+  background-image: url(../images/text.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
 .bar-graph {
   height: 300px;
   background-image: url(../images/bar-graph.png);
@@ -125,4 +118,11 @@ h2 {
   background-image: url(../images/line-graph.png);
   background-repeat: no-repeat;
   background-position: center center; 
+}
+
+.pie-chart {
+  height: 300px;
+  background-image: url(../images/pie-chart.png);
+  background-repeat: space no-repeat;
+  background-position: center center;
 }
