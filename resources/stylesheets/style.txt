@@ -92,6 +92,14 @@ h2 {
   background-position: center center; 
 }
 
+.video {
+  height: 250px;
+  background-image: url(../images/video.png);
+  background-size: 309px 209px;
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
+
 .quote {
   height: 400px;
   background-image: url(../images/quote.png);
