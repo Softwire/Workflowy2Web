@@ -69,7 +69,8 @@
 
   function placeholder(node, headingLevel) {
     var notesLines = getNotes(node);
-    var notesClasses = [ 'placeholder' ];
+    var contentBlockLevelClass = headingLevel < 7 ? 'content-block-level-' + headingLevel : 'content-block-text'
+    var notesClasses = [ 'placeholder', contentBlockLevelClass ];
     $.each(notesLines, function (index, line) {
       notesClasses = notesClasses.concat(line.split(' ').filter(function(word) {
         return word.indexOf('#') == 0;
