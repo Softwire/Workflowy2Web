@@ -16,7 +16,7 @@
       zip.file(page.filePath, page.content);
     });
 
-    var imageFileNames = ['bar-graph', 'contact', 'text', 'image' ,'line-graph', 'pie-chart', 'quote'];
+    var imageFileNames = ['bar-graph', 'text', 'image' ,'line-graph', 'pie-chart', 'quote'];
     
     //Import javascript and stylesheets
     async.series([
