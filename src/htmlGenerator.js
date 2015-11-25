@@ -23,7 +23,7 @@
   function head(title, navLevel) {
     return tag('head',
       tag('title', title) +
-      tag('link', '', { rel: 'stylesheet', href: '../'.repeat(navLevel + 1) + 'stylesheets/style.css' }) +
+      tag('link', '', { rel: 'stylesheet', href: '../'.repeat(navLevel) + 'stylesheets/style.css' }) +
       notesToggleFunction()
     );
   };

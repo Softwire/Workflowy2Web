@@ -44,14 +44,15 @@
   function updateNavigationObject(childPages) {
     if (childPages.length > 0) {
       navigationObject.push(childPages.map(function (childPage) {
-        return { displayText: childPage.title, path: (fileName ? (fileName + '/') : '') + childPage.fileName + '.html', selected: false };
+        return { displayText: childPage.title, path: (fileName ? (fileName) : filePath) + '/' + childPage.fileName + '.html', selected: false };
       }));
     }
   };
 
   function processChildren(childPages) {
     $.each(childPages, function (index, childPage) {
-      var outline = new Outline(childPage.node, siteTitle, generator, childPage.title, childPage.fileName, filePath + '/' + fileName, navigationObject);
+      var path = fileName ? filePath + '/' + fileName : filePath;
+      var outline = new Outline(childPage.node, siteTitle, generator, childPage.title, childPage.fileName, path, navigationObject);
       htmlPages = htmlPages.concat(outline.process());
     });
   };
