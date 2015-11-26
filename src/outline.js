@@ -44,7 +44,7 @@
   function updateNavigationObject(childPages) {
     if (childPages.length > 0) {
       navigationObject.push(childPages.map(function (childPage) {
-        return { displayText: childPage.title, path: (fileName ? (fileName) : filePath) + '/' + childPage.fileName + '.html', selected: false };
+        return { displayText: childPage.title, path: (fileName || filePath) + '/' + childPage.fileName + '.html', selected: false };
       }));
     }
   };
