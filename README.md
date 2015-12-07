@@ -17,6 +17,10 @@ More specifically...
 * Save the zip and extract it, and your prototype is ready to go
 * You can apply custom styling by modifying the included "custom.css"
 
+## Demo
+
+Give it a try with the demo outline at https://workflowy.com/s/YNC86MzSba! See all the Content Conventions below in action...
+
 ## Content Conventions
 * Each node is converted into a separate page unless its title is 'Content' or it is beneath a node with that title.
 * Nodes titled 'Content' contain the page content of the parent (Page) node.
