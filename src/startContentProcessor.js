@@ -8,16 +8,18 @@ var xml = $(parsedOpml);
 
 var siteTitle = $('.project.selected > .name').text();
 
+var filename = prompt("Please enter a name", "Prototype");
+
 var converter = new Converter(xml, siteTitle);
 converter.GetZippedHtmlFiles(function (data) {
-  saveAs(data, "Prototype.zip");
+  saveAs(data, filename + ".zip");
 });
 
 function extractOpmlData() {
   openExportPopup();
   switchToOpmlTab();
   var opml = getWorkflowyAsXml();
-  closeExportPopup()
+  closeExportPopup();
   return opml;
 }
 
