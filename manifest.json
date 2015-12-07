@@ -7,14 +7,19 @@
 
   "permissions": [
     "tabs",
-	"https://workflowy.com/s/*"
+    "https://workflowy.com/s/*",
+    "declarativeContent"
   ],
   "background":{
     "persistent":false,
     "page":"background.html"
   },
-  "browser_action": {
-    "default_icon": "icons/browserAction.png"
+  "page_action": {
+    "default_icon": {
+      "19": "icons/19.png",
+      "38": "icons/38.png"
+    },
+    "default_title": "Workflowy2Web"
   },
   "icons": {
 	"48": "icons/48.png",
