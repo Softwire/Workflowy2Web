@@ -1,0 +1,136 @@
+﻿body {
+  font: 16px Helvetica, Arial, sans-serif;
+  color: #666;
+}
+
+a {
+  color: #0077FF;
+}
+
+.placeholder {
+  box-sizing:border-box;
+  background-color: #F2F2F2;
+  margin: 1rem 0;
+  padding: 0.25rem;
+  padding-bottom: 0.5rem;
+  white-space: pre-line;
+  min-height: 250px;
+}
+
+.mainNav {
+    padding: 0;
+    margin: 0;
+    font-size: 0.75em;
+    background-color: #ccc;
+}
+
+.localNav {
+    margin-top: 0.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.75em;
+    padding: 0;
+    background-color: #ccc;
+}
+
+.mainNav a,
+.localNav a {
+  display: inline-block;
+  padding: 1rem;
+  text-decoration: none;
+}
+
+.selected {
+  background-color: #333;
+}
+
+a.selected {
+  color: #00B7FF;
+}
+
+h1 {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin: 0.4rem 0 1rem 0;
+  font-weight: bold;
+}
+
+.note {
+  display: none;
+  font-size: 0.75rem;
+}
+
+.notes .note {
+  display: block;
+}
+
+.notes .p2 {
+  opacity: 0.5;
+}
+
+.note-hashes {
+  margin-bottom: 1em;
+}
+
+.contentMissing {
+  font-style: italic;
+}
+
+.filter,
+.title,
+.navigation,
+.subtitle,
+.context {
+  height: auto;
+}
+
+.image {
+  height: 250px;
+  background-image: url(../images/image.png);
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
+
+.video {
+  height: 250px;
+  background-image: url(../images/video.png);
+  background-size: 309px 209px;
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
+
+.quote {
+  height: 400px;
+  background-image: url(../images/quote.png);
+  background-repeat: repeat-y;
+  background-position: center center;
+}
+
+.text {
+  height: 200px;
+  background-image: url(../images/text.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.bar-graph {
+  height: 300px;
+  background-image: url(../images/bar-graph.png);
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
+
+.line-graph {
+  height: 300px;
+  background-image: url(../images/line-graph.png);
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
+
+.pie-chart {
+  height: 300px;
+  background-image: url(../images/pie-chart.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
