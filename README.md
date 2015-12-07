@@ -3,7 +3,7 @@
 Workflowy2Web is a Chrome extension which can convert a [Workflowy](https://workflowy.com/) list representing a content outline for a website into a working prototype of that website in static HTML files. Installing the extension adds a button to the Chrome toolbar which converts the currently-viewed Workflowy list into a zipped folder containing images, stylesheets and html pages making up the prototype site.
 
 ## How to get it
-The Workflowy Prototype Converter can be installed from the [QQQQQQ Chrome Web Store](https://chrome.google.com/webstore/category/apps).
+Workflowy2Web will be available on the Chrome Web Store in due course - watch this space!
 
 ## How to use it
 Create your site outline in Workflowy, following some content conventions (see below). Click the button in Chrome and it will create HTML files for each of your page nodes, with divs for the content nodes within each page, zip them up and present them for download. Save and extract the zip, and load the first HTML page in a browser - pow! There's your prototype.
