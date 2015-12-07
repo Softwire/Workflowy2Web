@@ -21,9 +21,14 @@
   };
 
   function head(title, navLevel) {
+    var prefix = '';
+    for (var i = 0; i < navLevel; i++) {
+      prefix += '../';
+    }
+
     return tag('head',
       tag('title', title) +
-      tag('link', '', { rel: 'stylesheet', href: '../'.repeat(navLevel) + 'stylesheets/style.css' }) +
+      tag('link', '', { rel: 'stylesheet', href: prefix + 'stylesheets/style.css' }) +
       notesToggleFunction()
     );
   };
