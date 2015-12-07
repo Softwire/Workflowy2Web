@@ -46,12 +46,12 @@ describe('outline', function() {
   });
 
   describe('process', function() {
-    it('returns a list of html pages with structured file paths', function() {
-      var result = outline.process();
-      function filePathForPage(pageNumber) {
-        return result[pageNumber].filePath;
-      }
+    var result;
+    beforeEach(function() {
+      result = outline.process();
+    });
 
+    it('returns a list of html pages with structured file paths', function() {
       expect(result.length).toBe(4);
       expect(filePathForPage(0)).toEqual('/path/to/pageTitle.html');
       expect(filePathForPage(1)).toEqual('/path/to/pageTitle/top.html');
@@ -60,11 +60,6 @@ describe('outline', function() {
     });
 
     it('calls the generator with the correct title for each page', function() {
-      var result = outline.process();
-      function titleForPage(pageIndex) {
-        return result[pageIndex].content[2];
-      }
-
       expect(titleForPage(0)).toEqual('Page Title');
       expect(titleForPage(1)).toEqual('Top');
       expect(titleForPage(2)).toEqual('Footer - tag');
@@ -72,32 +67,47 @@ describe('outline', function() {
     });
     
     it('calls the generator with the navigation object for the page', function() {
-      var result = outline.process();
-      expect(navObjectForPage(result, 0).length).toEqual(2);
-      expect(navObjectForPage(result, 3)[2][0].path).toEqual('../footertag/print.html');
+      expect(navObjectForPage(0).length).toEqual(2);
+      expect(navObjectForPage(3)[2][0].path).toEqual('../footertag/print.html');
     });
     
     it('sets the selected state of parent pages in the navigation object', function() {
-      var result = outline.process();
-      expect(navObjectForPage(result, 3)[0][0].selected).toEqual(true);
-      expect(navObjectForPage(result, 3)[1][1].selected).toEqual(true);
-      expect(navObjectForPage(result, 3)[2][0].selected).toEqual(true);
+      expect(navObjectForPage(3)[0][0].selected).toEqual(true);
+      expect(navObjectForPage(3)[1][1].selected).toEqual(true);
+      expect(navObjectForPage(3)[2][0].selected).toEqual(true);
     });
     
     it('calls the generator with the navigation level of the page', function() {
-      var result = outline.process();
-      function navLevelForPage(pageNumber) {
-        return result[pageNumber].content[4];
-      }
-
       expect(navLevelForPage(0)).toEqual(1);
       expect(navLevelForPage(1)).toEqual(2);
       expect(navLevelForPage(2)).toEqual(2);
       expect(navLevelForPage(3)).toEqual(3);
     });
-  });
 
-  function navObjectForPage(result, pageNumber) {
-    return result[pageNumber].content[3];
-  }
+    var pageFields = {
+      title: 2,
+      navObject: 3,
+      navLevel: 4
+    };
+
+    function filePathForPage(pageNumber) {
+      return result[pageNumber].filePath;
+    }
+
+    function pageContent(pageNumber, field) {
+      return result[pageNumber].content[pageFields[field]];
+    }
+
+    function titleForPage(pageNumber) {
+      return pageContent(pageNumber, 'title');
+    }
+
+    function navObjectForPage(pageNumber) {
+      return pageContent(pageNumber, 'navObject');
+    }
+
+    function navLevelForPage(pageNumber) {
+      return pageContent(pageNumber, 'navLevel');
+    }
+  });
 });
