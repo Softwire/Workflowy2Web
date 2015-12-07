@@ -37,14 +37,19 @@ Give it a try with the demo outline at https://workflowy.com/s/YNC86MzSba! See a
 
 ## Styling
 
-Styles are contained within a "style.css" file and a "custom.css" file. The custom file is left blank for you to add in your own styling to adjust the prototype. The "style.css" file contains a set of built-in styles for particular types of content, as follows. Add the given hashtag to the notes field (Shift-Enter) on the node, and the content mentioned will appear in the div.
+Styles are contained within a "style.css" file and a "custom.css" file. The custom file is left blank for you to add in your own styling to adjust the prototype. The "style.css" file contains a set of built-in styles - some to provide a baseline for the site, and some to provide backdrops and styling for particular types of content.
 
-**QQ NEEDS CHECKING**
+At the time of writing, the following built-in classes will add backdrop content to your divs. Add the given hashtag to the notes field (Shift-Enter) on the node, and the content mentioned will appear in the div.
 
-* #line-graph - adds a line graph image
-* #bar-graph - adds a bar graph image
-* #pie-chart - adds a pie chart image
-* #lorem - adds a short paragraph of lorem ipsum (in fact just an image, as it's only CSS styling)
+| Hashtag | Content |
+|---------|---------|
+| #text   | a short lorem ipsum quote - actually just an image for now |
+| #image  | image placeholder |
+| #video  | video player image |
+| #quote  | a pull-quote image |
+| #line-graph | line graph image |
+| #bar-graph | bar graph image |
+| #pie-chart | pie chart image |
 
 ## For developers
 ### Running unit tests
