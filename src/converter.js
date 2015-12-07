@@ -1,45 +1,57 @@
-﻿var Converter = function (xml, siteTitle) {
-  this.GetZippedHtmlFiles = function (callback) {
-    //TODO: Note this creates two nested folders called html which isn't the ideal file structure...
-    var topNode = xml.find('body');
-    // Ignore the top node if there is only one at that level and it matches the site title and it doesn't have a content node
-    if (topNode.children().length == 1 &&
-            stripText(siteTitle) == stripText(topNode.children().first().attr('text')) &&
-            topNode.children().first().children('[text=Content]').length == 0) {
-      topNode = topNode.children().first();
-    }
-    var bodyNode = new Outline(topNode, siteTitle, new HtmlGenerator(), '', '', 'html', []);
-    var htmlPages = bodyNode.process();
+﻿define([
+  'src/htmlGenerator',
+  'src/outline',
+  'src/utilities',
+  'lib/jszip.min',
+  'lib/async.min',
+  'lib/jszip-utils.min'
+], function(HtmlGenerator, Outline, Util, JSZip, async, JSZipUtils) {
+  return function (xml, siteTitle) {
+    this.GetZippedHtmlFiles = function (callback) {
+      //TODO: Note this creates two nested folders called html which isn't the ideal file structure...
+      var topNode = xml.find('body');
+      // Ignore the top node if there is only one at that level and it matches the site title and it doesn't have a content node
+      if (topNode.children().length == 1 &&
+          Util.stripText(siteTitle) == Util.stripText(topNode.children().first().attr('text')) &&
+          topNode.children().first().children('[text=Content]').length == 0) {
+        topNode = topNode.children().first();
+      }
+      var bodyNode = new Outline(topNode, siteTitle, new HtmlGenerator(), '', '', 'html', []);
+      var htmlPages = bodyNode.process();
 
-    var zip = new JSZip();
-    htmlPages.forEach(function (page) {
-      zip.file(page.filePath, page.content);
-    });
+      var zip = new JSZip();
+      htmlPages.forEach(function (page) {
+        zip.file(page.filePath, page.content);
+      });
 
-    var imageFileNames = ['bar-graph', 'image' ,'line-graph', 'pie-chart', 'quote', 'text', 'video'];
-    
-    //Import javascript and stylesheets
-    async.series([
+      var imageFileNames = ['bar-graph', 'image' ,'line-graph', 'pie-chart', 'quote', 'text', 'video'];
+
+      //Import javascript and stylesheets
+      async.series([
         function (callback) {
-          addExistingFile(zip, chrome.extension.getURL('resources/stylesheets/style.css'), 'stylesheets/style.css', callback);
-          addExistingFile(zip, chrome.extension.getURL('resources/stylesheets/empty.css'), 'stylesheets/custom.css', callback);
+          addExistingFile(zip, chrome.extension.getURL('resources/stylesheets/style.txt'), 'stylesheets/style.css', callback);
+        },
+        function (callback) {
+          addExistingFile(zip, chrome.extension.getURL('resources/stylesheets/empty.txt'), 'stylesheets/custom.css', callback);
         }
       ].concat(imageFileNames.map(function(imageFileName) {
-        return function (callback) {
-          addExistingFile(zip, chrome.extension.getURL('resources/images/' + imageFileName + '.png'), 'images/' + imageFileName + '.png', callback);
-        };
-      })), function () {
-      callback(zip.generate({ type: 'blob' }));
-    });
-  };
+            return function (callback) {
+              addExistingFile(zip, chrome.extension.getURL('resources/images/' + imageFileName + '.png'), 'images/' + imageFileName + '.png', callback);
+            };
+          })),
+      function () {
+        callback(zip.generate({ type: 'blob' }));
+      });
+    };
 
-  function addExistingFile(zip, filePath, zipPath, callback) {
-    JSZipUtils.getBinaryContent(filePath, function (err, data) {
-      if (err) {
-        console.log('File failed to load', filePath, err);
-      }
-      zip.file(zipPath, data);
-      callback(null, true);
-    });
-  };
-}
+    function addExistingFile(zip, filePath, zipPath, callback) {
+      JSZipUtils.getBinaryContent(filePath, function (err, data) {
+        if (err) {
+          console.log('File failed to load', filePath, err);
+        }
+        zip.file(zipPath, data);
+        callback(null, true);
+      });
+    }
+  }
+});

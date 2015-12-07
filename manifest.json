@@ -22,16 +22,28 @@
     "default_title": "Workflowy2Web"
   },
   "icons": {
-	"48": "icons/48.png",
-	"128": "icons/128.png"
+    "48": "icons/48.png",
+    "128": "icons/128.png"
   },
   "content_scripts": [
     {
-	  "matches": [ "https://workflowy.com/*" ],
-      "js": [ "lib/jquery-2.1.4.min.js", "lib/jszip.min.js", "lib/jszip-utils.min.js", "lib/FileSaver.min.js", "lib/async.min.js", "src/htmlGenerator.js", "src/converter.js", "src/outline.js", "src/utilities.js" ]
+      "matches": [ "https://workflowy.com/*" ],
+      "js": [
+        "lib/require.min.js",
+        "lib/jquery-2.1.4.min.js",
+        "lib/requireContent.js",
+        "lib/requireConfig.js",
+        "lib/jszip.min.js",
+        "lib/jszip-utils.min.js",
+        "lib/FileSaver.min.js",
+        "lib/async.min.js",
+        "background.js"
+      ]
     }
   ],
   "web_accessible_resources": [
-    "resources/*"
+    "resources/*",
+    "lib/*",
+    "src/*"
   ]
 }

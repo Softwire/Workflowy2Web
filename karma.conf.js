@@ -10,14 +10,17 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'requirejs'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'lib/*.js',
-      'src/*.js',
-      'test/*.test.js'
+      'lib/jquery-2.1.4.min.js',
+      'test/test-main.js',
+      {pattern: 'src/*.js', included: false},
+      {pattern: 'lib/*.js', included: false},
+      {pattern: 'test/*.test.js', included: false},
+      {pattern: 'test/mock/*.mock.js', included: false}
     ],
 
 
