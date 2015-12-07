@@ -17,7 +17,7 @@
     });
 
     var imageFileNames = ['bar-graph', 'image' ,'line-graph', 'pie-chart', 'quote', 'text', 'video'];
-    
+
     //Import javascript and stylesheets
     async.series([
         function (callback) {
@@ -41,5 +41,5 @@
       zip.file(zipPath, data);
       callback(null, true);
     });
-  };
+  }
 }
