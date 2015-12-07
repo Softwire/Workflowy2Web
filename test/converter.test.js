@@ -48,7 +48,7 @@ describe('converter', function() {
     it('adds static files to the zip', function(done) {
       converter.GetZippedHtmlFiles(function() {
         expect(async.series.calls.count()).toEqual(1);
-        expect(async.series.calls.mostRecent().args[0].length).toEqual(7);
+        expect(async.series.calls.mostRecent().args[0].length).toEqual(8);
         done();
       });
     });
