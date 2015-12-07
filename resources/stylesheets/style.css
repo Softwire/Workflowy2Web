@@ -50,12 +50,38 @@ a.selected {
 }
 
 h1 {
-  margin-bottom: 2rem;
+  margin: 2rem 1rem 2rem;
+  font-size: 3rem;
 }
 
 h2 {
   margin: 0.4rem 0 1rem 0;
   font-weight: bold;
+  font-size: 2rem;
+}
+
+h3 {
+  margin: 0.4rem 0 1rem 0;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+h4 {
+  margin: 0.4rem 0 1rem 0;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+h5 {
+  margin: 0.4rem 0 1rem 0;
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+h6 {
+  margin: 0.4rem 0 1rem 0;
+  font-weight: bold;
+  font-size: 1.0625rem;
 }
 
 .note {
