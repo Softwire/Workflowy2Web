@@ -12,6 +12,10 @@
   return text.trim();
 };
 
+function getTitle(node) {
+  return stripText($(node).attr('text'));
+}
+
 function isPage(title) {
   return shouldBeUsed(title) && title.toLowerCase() != "content";
 };
