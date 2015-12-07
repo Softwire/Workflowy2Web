@@ -9,7 +9,7 @@
 
   function docType() {
     return '<!doctype html>';
-  };
+  }
 
   function tag(tagName, content, attributes) {
     attributes = attributes || {};
@@ -18,7 +18,7 @@
     }).join(' ');
     attrString = attrString ? ' ' + attrString : '';
     return '<' + tagName + attrString + '>' + content + '</' + tagName + '>';
-  };
+  }
 
   function head(title, navLevel) {
     return tag('head',
@@ -26,7 +26,7 @@
       tag('link', '', { rel: 'stylesheet', href: '../'.repeat(navLevel) + 'stylesheets/style.css' }) +
       notesToggleFunction()
     );
-  };
+  }
 
   function body(node, siteTitle, navigationObject) {
     return tag('body',
@@ -34,13 +34,13 @@
       navigation(navigationObject) +
       pageContent(node)
     );
-  };
+  }
 
   function navigation(navigationObject) {
     return navigationObject.map(function(navigationLinks, index) {
       return navigationBar(navigationLinks, index == 0);
     }).join('');
-  };
+  }
 
   function navigationBar(navigationLinks, mainNav) {
     return tag('div', navigationLinks.map(function(link) {
@@ -50,7 +50,7 @@
       }
       return tag('a', link.displayText, attributes);
     }).join(''), { className: mainNav ? 'mainNav' : 'localNav' });
-  };
+  }
 
   function pageContent(node) {
     var contentNode = $(node).children('[text=Content]');
@@ -62,14 +62,18 @@
       contentNode = $(node).children('[text*="' + nodeToFind + '"]').children('[text=Content]');
     }
 
-    return $.makeArray(contentNode.children()).map(function(outline) {
-      return placeholder(outline, 2);
+    return $.makeArray(contentNode.children())
+      .filter(function(child) {
+        return shouldBeUsed(getTitle(child))
+      })
+      .map(function(outline) {
+          return placeholder(outline, 2);
     }).join('');
-  };
+  }
 
   function placeholder(node, headingLevel) {
     var notesLines = getNotes(node);
-    var contentBlockLevelClass = headingLevel < 7 ? 'content-block-level-' + headingLevel : 'content-block-text'
+    var contentBlockLevelClass = headingLevel < 7 ? 'content-block-level-' + headingLevel : 'content-block-text';
     var notesClasses = [ 'placeholder', contentBlockLevelClass ];
     $.each(notesLines, function (index, line) {
       notesClasses = notesClasses.concat(line.split(' ').filter(function(word) {
@@ -84,13 +88,13 @@
     }).join('');
     var headingTag = headingLevel < 7 ? 'h' + headingLevel : 'span';
     return tag('div', tag(headingTag, heading) + tag('span', notesLines.join('\n'), { className: 'note' }) + childContent, { className: notesClasses.join(' ').toLowerCase() });
-  };
+  }
 
   function getNotes(node) {
     return stripText($(node).attr('_note')).split('\n').filter(function(line) {
       return line.indexOf('~') != 0;
     });
-  };
+  }
 
   function notesToggleFunction() {
     return tag('script',
@@ -129,5 +133,5 @@
         '};' +
       '}'
     );
-  };
+  }
 };

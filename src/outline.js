@@ -27,7 +27,7 @@
   function getChildPages() {
     var pages = [];
     $.each($(node).children(), function (index, child) {
-      var childTitle = stripText($(child).attr('text'));
+      var childTitle = getTitle(child);
       if (isPage(childTitle)) {
         if (childTitle[0] == '[') {
           $.each(childTitle.substring(1, childTitle.length - 1).split(','), function(index, subTitle) {

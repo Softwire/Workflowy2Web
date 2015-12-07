@@ -12,6 +12,14 @@
   return text.trim();
 };
 
+function getTitle(node) {
+  return stripText($(node).attr('text'));
+}
+
 function isPage(title) {
-  return title && title.toLowerCase() != "content" && title.indexOf("~") != 0;
+  return shouldBeUsed(title) && title.toLowerCase() != "content";
 };
+
+function shouldBeUsed(title) {
+  return !!title && title.indexOf("~") != 0;
+}
