@@ -1,6 +1,6 @@
-# Workflowy2HTML
+# Workflowy2Web
 
-Workflowy2HTML is a Chrome extension which can convert a [Workflowy](https://workflowy.com/) list representing a content outline for a website into a working prototype of website in static HTML files. Installing the extension adds a button to the Chrome toolbar which converts the currently-viewed Workflowy list into a zipped folder containing images, stylesheets and html pages making up the prototype site.
+Workflowy2Web is a Chrome extension which can convert a [Workflowy](https://workflowy.com/) list representing a content outline for a website into a working prototype of that website in static HTML files. Installing the extension adds a button to the Chrome toolbar which converts the currently-viewed Workflowy list into a zipped folder containing images, stylesheets and html pages making up the prototype site.
 
 ## How to get it
 The Workflowy Prototype Converter can be installed from the [QQQQQQ Chrome Web Store](https://chrome.google.com/webstore/category/apps).
@@ -41,7 +41,6 @@ Styles are contained within a "style.css" file and a "custom.css" file. The cust
 * #bar-graph - adds a bar graph image
 * #pie-chart - adds a pie chart image
 * #lorem - adds a short paragraph of lorem ipsum (in fact just an image, as it's only CSS styling)
-
 
 ## For developers
 ### Running unit tests
