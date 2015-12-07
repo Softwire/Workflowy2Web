@@ -44,16 +44,14 @@ Styles are contained within a "style.css" file and a "custom.css" file. The cust
 
 ## For developers
 ### Running unit tests
-Tests are run using [karma](http://karma-runner.github.io/0.13/index.html). You will need to [install Node.js](https://docs.npmjs.com/getting-started/installing-node) and then use npm to install karma:
+Tests are run using [karma](http://karma-runner.github.io/0.13/index.html). You will need to [install Node.js](https://docs.npmjs.com/getting-started/installing-node) and then use npm in the main directory to install dependencies:
 
 ```
-npm install -g karma
-npm install -g karma-jasmine
-npm install -g karma-chrome-launcher
+npm install
 ```
-You will then be able to launch the test runner from the command line in the main directory:
+You will then be able to launch a single run of the tests from the command line in the main directory:
 ```
-karma start
+npm test
 ```
 ### Manual testing and debugging
 Chrome extensions can be loaded in Google Chrome from the source code without having to be packaged: 
