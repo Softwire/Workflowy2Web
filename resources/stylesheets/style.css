@@ -11,10 +11,12 @@ a {
   box-sizing:border-box;
   background-color: #F2F2F2;
   margin: 1rem 0;
-  padding: 0.25rem;
-  padding-bottom: 0.5rem;
   white-space: pre-line;
   min-height: 250px;
+}
+
+.content-block-level-2 {
+  padding: 1rem;
 }
 
 .mainNav {
