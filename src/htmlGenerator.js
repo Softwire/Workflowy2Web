@@ -29,6 +29,7 @@
     return tag('head',
       tag('title', title) +
       tag('link', '', { rel: 'stylesheet', href: prefix + 'stylesheets/style.css' }) +
+      tag('link', '', { rel: 'stylesheet', href: prefix + 'stylesheets/custom.css' }) +
       notesToggleFunction()
     );
   }
