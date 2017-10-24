@@ -15,7 +15,7 @@ More specifically...
 * Click on the title node, so that Workflowy focuses on it (rather than e.g. its parents)
 * Click the button on the toolbar to trigger your prototype download
 * Save the zip and extract it, and your prototype is ready to go
-* You can apply custom styling by modifying the included "custom.css"
+* You can apply custom styling by renaming "custom.template.css" to "custom.css" and modifying as required.
 
 ## Demo
 
@@ -63,7 +63,7 @@ You will then be able to launch a single run of the tests from the command line 
 npm test
 ```
 ### Manual testing and debugging
-Chrome extensions can be loaded in Google Chrome from the source code without having to be packaged: 
+Chrome extensions can be loaded in Google Chrome from the source code without having to be packaged:
 * Go to chrome://extensions/
 * Enable Developer Mode
 * Click the 'Load unpacked extension...' button
