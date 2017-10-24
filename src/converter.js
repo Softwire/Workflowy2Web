@@ -8,8 +8,8 @@
             topNode.children().first().children('[text=Content]').length == 0) {
       topNode = topNode.children().first();
     }
-    var bodyNode = new Outline(topNode, siteTitle, new HtmlGenerator(), '', '', 'html', []);
-    var htmlPages = bodyNode.process();
+    var bodyNode = new Outline(topNode, '', '', 'html', []);
+    var htmlPages = bodyNode.process(siteTitle, new HtmlGenerator());
 
     var zip = new JSZip();
     htmlPages.forEach(function (page) {

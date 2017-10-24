@@ -1,4 +1,4 @@
-﻿var Outline = function (node, siteTitle, generator, title, fileName, filePath, parentNavigationObject) {
+﻿var Outline = function (node, title, fileName, filePath, parentNavigationObject) {
   var navigationObject = parentNavigationObject.map(function (navBar) {
     return navBar.map(function (link) {
       return {
@@ -11,7 +11,7 @@
   var htmlPages = [];
   var navLevel = parentNavigationObject.length;
 
-  this.process = function () {
+  this.process = function (siteTitle, generator) {
     var childPages = getChildPages();
     updateNavigationObject(childPages);
     if (isPage(title)) {
@@ -20,7 +20,7 @@
         content: generator.generate(node, siteTitle, title, navigationObject, navLevel)
       });
     }
-    processChildren(childPages);
+    processChildren(childPages, siteTitle, generator);
     return htmlPages;
   };
 
@@ -29,17 +29,22 @@
     $.each($(node).children(), function (index, child) {
       var childTitle = getTitle(child);
       if (isPage(childTitle)) {
-        if (childTitle[0] == '[') {
-          $.each(childTitle.substring(1, childTitle.length - 1).split(','), function(index, subTitle) {
-            pages.push({ title: subTitle, fileName: stripText(subTitle, true).toLowerCase(), node: child });
-          });
-        } else {
-          pages.push({ title: childTitle, fileName: stripText(childTitle, true).toLowerCase(), node: child });
-        }
+        getChildTitles(childTitle).map(function(subTitle) {
+          pages.push({ title: subTitle, fileName: stripText(subTitle, true).toLowerCase(), node: child });
+        });
       }
     });
     return pages;
   };
+
+  function getChildTitles(childTitle) {
+    if (childTitle[0] == '[') {
+      return childTitle.substring(1, childTitle.length - 1).split(',')
+    } else {
+      return [childTitle];
+    }
+  }
+
 
   function updateNavigationObject(childPages) {
     if (childPages.length > 0) {
@@ -49,11 +54,11 @@
     }
   };
 
-  function processChildren(childPages) {
+  function processChildren(childPages, siteTitle, generator) {
     $.each(childPages, function (index, childPage) {
       var path = fileName ? filePath + '/' + fileName : filePath;
-      var outline = new Outline(childPage.node, siteTitle, generator, childPage.title, childPage.fileName, path, navigationObject);
-      htmlPages = htmlPages.concat(outline.process());
+      var outline = new Outline(childPage.node, childPage.title, childPage.fileName, path, navigationObject);
+      htmlPages = htmlPages.concat(outline.process(siteTitle, generator));
     });
   };
 };

@@ -19,18 +19,12 @@ describe('outline', function() {
     '<outline text="~Ignore" />' +
   '</body>' +
 '</opml>';
-    var generator = {
-      generate: function(node, siteTitle, title, navigationObject, navLevel) {
-        return arguments;
-      }
-    };
+
     outline = new Outline(
       $($.parseXML(opml)).find('body'),
-      'Site Title',
-      generator,
-      'Page Title', 
-      'pageTitle', 
-      '/path/to', 
+      'Page Title',
+      'pageTitle',
+      '/path/to',
       [[
         {
           displayText: 'Home',
@@ -46,9 +40,14 @@ describe('outline', function() {
   });
 
   describe('process', function() {
+    var generator = {
+      generate: function(node, siteTitle, title, navigationObject, navLevel) {
+        return arguments;
+      }
+    };
     var result;
     beforeEach(function() {
-      result = outline.process();
+      result = outline.process('Site Title', generator);
     });
 
     it('returns a list of html pages with structured file paths', function() {
@@ -65,18 +64,18 @@ describe('outline', function() {
       expect(titleForPage(2)).toEqual('Footer - tag');
       expect(titleForPage(3)).toEqual('Print');
     });
-    
+
     it('calls the generator with the navigation object for the page', function() {
       expect(navObjectForPage(0).length).toEqual(2);
       expect(navObjectForPage(3)[2][0].path).toEqual('../footertag/print.html');
     });
-    
+
     it('sets the selected state of parent pages in the navigation object', function() {
       expect(navObjectForPage(3)[0][0].selected).toEqual(true);
       expect(navObjectForPage(3)[1][1].selected).toEqual(true);
       expect(navObjectForPage(3)[2][0].selected).toEqual(true);
     });
-    
+
     it('calls the generator with the navigation level of the page', function() {
       expect(navLevelForPage(0)).toEqual(1);
       expect(navLevelForPage(1)).toEqual(2);
