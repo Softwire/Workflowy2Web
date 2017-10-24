@@ -1,4 +1,4 @@
-﻿var Outline = function (node, siteTitle, generator, title, fileName, filePath, parentNavigationObject) {
+﻿var Outline = function (node, title, fileName, filePath, parentNavigationObject) {
   var navigationObject = parentNavigationObject.map(function (navBar) {
     return navBar.map(function (link) {
       return {
@@ -11,7 +11,7 @@
   var htmlPages = [];
   var navLevel = parentNavigationObject.length;
 
-  this.process = function () {
+  this.process = function (siteTitle, generator) {
     var childPages = getChildPages();
     updateNavigationObject(childPages);
     if (isPage(title)) {
@@ -20,7 +20,7 @@
         content: generator.generate(node, siteTitle, title, navigationObject, navLevel)
       });
     }
-    processChildren(childPages);
+    processChildren(childPages, siteTitle, generator);
     return htmlPages;
   };
 
@@ -49,11 +49,11 @@
     }
   };
 
-  function processChildren(childPages) {
+  function processChildren(childPages, siteTitle, generator) {
     $.each(childPages, function (index, childPage) {
       var path = fileName ? filePath + '/' + fileName : filePath;
-      var outline = new Outline(childPage.node, siteTitle, generator, childPage.title, childPage.fileName, path, navigationObject);
-      htmlPages = htmlPages.concat(outline.process());
+      var outline = new Outline(childPage.node, childPage.title, childPage.fileName, path, navigationObject);
+      htmlPages = htmlPages.concat(outline.process(siteTitle, generator));
     });
   };
 };
