@@ -29,17 +29,22 @@
     $.each($(node).children(), function (index, child) {
       var childTitle = getTitle(child);
       if (isPage(childTitle)) {
-        if (childTitle[0] == '[') {
-          $.each(childTitle.substring(1, childTitle.length - 1).split(','), function(index, subTitle) {
-            pages.push({ title: subTitle, fileName: stripText(subTitle, true).toLowerCase(), node: child });
-          });
-        } else {
-          pages.push({ title: childTitle, fileName: stripText(childTitle, true).toLowerCase(), node: child });
-        }
+        getChildTitles(childTitle).map(function(subTitle) {
+          pages.push({ title: subTitle, fileName: stripText(subTitle, true).toLowerCase(), node: child });
+        });
       }
     });
     return pages;
   };
+
+  function getChildTitles(childTitle) {
+    if (childTitle[0] == '[') {
+      return childTitle.substring(1, childTitle.length - 1).split(',')
+    } else {
+      return [childTitle];
+    }
+  }
+
 
   function updateNavigationObject(childPages) {
     if (childPages.length > 0) {
