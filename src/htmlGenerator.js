@@ -88,7 +88,7 @@
         return className.substring(1);
       }));
     });
-    var heading = stripText($(node).attr('text'));
+    var heading = replaceURLs(stripText($(node).attr('text')), 'html');
     var childContent = $.makeArray($(node).children()).map(function (outline) {
       return placeholder(outline, headingLevel + 1);
     }).join('');
